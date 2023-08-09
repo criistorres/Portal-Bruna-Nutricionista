@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- BEGIN Page Content -->
+<!-- the #js-page-content id is needed for some plugins to initialize -->
+<main id="js-page-content" role="main" class="page-content">
+    <ol class="breadcrumb page-breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0);">SmartAdmin</a></li>
+        <li class="breadcrumb-item">Category</li>
+        <li class="breadcrumb-item">Sub-category</li>
+        <li class="breadcrumb-item active">Page Title</li>
+        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
+    </ol>
+    <div class="subheader">
+        <h1 class="subheader-title">
+            <i class='subheader-icon fal fa-globe'></i> Tela de teste de Video <span class='fw-300'>index</span> <sup class='badge badge-primary fw-500'>STICKER</sup>
+            <small>
+                Insert page description or punch line
+            </small>
+        </h1>
+        <!-- 
+        Right content on content header
+        A nice area to add graphs or buttons -->
+        <div class="subheader-block">
+            Right Subheader Block
+        </div>
+    </div>
+    <style>
+        .video-card {
+            display: grid;
+            grid-template-columns: 20% 80%;
+            gap: 20px;
+        }
+        
+        .video-description {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* Proporção 16:9 (divida a altura pela largura e multiplique por 100) */
+        }
+        
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <div class="video-card">
+        <div class="video-description">
+            <h2>Descrição do vídeo</h2>
+            <p>Nome: Nome do vídeo</p>
+            <p>Assunto: Assunto do vídeo</p>
+        </div>
+        <div class="video-container">
+            <video controls controlsList="nodownload">
+                <source src="{% static 'media/video/videobruna.mp4' %}" type="video/mp4">
+                Seu navegador não suporta a reprodução de vídeos.
+            </video>
+        </div>
+    </div>
+</main>
+<!-- this overlay is activated only when mobile menu is triggered -->
+<div class="page-content-overlay" data-action="toggle" data-class="mobile-nav-on"></div>
+<!-- END Page Content -->
+<!-- BEGIN Page Footer -->
+<footer class="page-footer" role="contentinfo">
+    <div class="d-flex align-items-center flex-1 text-muted">
+        <span class="hidden-md-down fw-700">2020 © SmartAdmin by&nbsp;<a href='https://www.gotbootstrap.com' class='text-primary fw-500' title='gotbootstrap.com' target='_blank'>gotbootstrap.com</a></span>
+    </div>
+    <div>
+        <ul class="list-table m-0">
+            <li><a href="{% static 'intel_introduction.html' %}" class="text-secondary fw-700">About</a></li>
+            <li class="pl-3"><a href="{% static 'info_app_licensing.html' %}" class="text-secondary fw-700">License</a></li>
+            <li class="pl-3"><a href="{% static 'info_app_docs.html' %}" class="text-secondary fw-700">Documentation</a></li>
+            <li class="pl-3 fs-xl"><a href="https://wrapbootstrap.com/user/MyOrange" class="text-secondary" target="_blank"><i class="fal fa-question-circle" aria-hidden="true"></i></a></li>
+        </ul>
+    </div>
+</footer>
+<!-- END Page Footer -->
+{% endblock %}

@@ -86,7 +86,7 @@
             {% for categoria in categorias_sidebar %}
             <li>
                 <a href="#" title="Category" data-filter-tags="{{ categoria.nome }}">
-                    <i class="fas {{ categoria.icone }}"></i>
+                    <i class="fas {{ categoria.icone.icone_css_class }}"></i>
                     <span class="nav-link-text" data-i18n="nav.category">{{ categoria.nome }}</span>
                 </a>
                 <ul>

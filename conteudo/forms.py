@@ -1,5 +1,5 @@
 from django import forms
-from .models import Conteudo, Categoria, Comentario, Resposta
+from .models import Conteudo, Categoria, Comentario, Resposta, Icone
 
 class ConteudoForm(forms.ModelForm):
     class Meta:
@@ -21,3 +21,7 @@ class RespostaForm(forms.ModelForm):
         model = Resposta
         fields = ['comentario','texto','owner']
 
+class IconeForm(forms.ModelForm):
+    class Meta:
+        model = Icone
+        fields = ['icone_css_class','descricao']
