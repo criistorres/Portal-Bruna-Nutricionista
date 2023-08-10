@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import DetailView, View
-from .models import Conteudo, Comentario, Resposta, Categoria
+from .models import Conteudo, Comentario, Resposta, Categoria, Notificacao
 from django.views.generic import TemplateView
 from usuarios.models import Users
 
@@ -38,11 +38,17 @@ class ResponderComentarioView(View):
         owner_id = Users.objects.get(pk=usuario_pk)
 
         if resposta_texto:
-            # Resposta.objects.create(comentario=comentario, texto=resposta_texto, owner_id=owner_id.pk)
-            Resposta.objects.create(comentario=comentario, texto=resposta_texto, owner_id=owner_id.pk)
+            # Aqui, você cria a resposta e armazena o objeto resposta retornado na variável "resposta"
+            resposta = Resposta.objects.create(comentario=comentario, texto=resposta_texto, owner_id=owner_id.pk)
+            
+            # Criando a notificação para o autor do comentário original:
+            notificacao = Notificacao(usuario=comentario.owner, resposta=resposta, gerador=resposta.owner)
+            notificacao.save()
+
             messages.success(request, 'Resposta publicada com sucesso!')
 
         return redirect('conteudo:conteudo_detail', pk=conteudo_pk)
 
 class Erro404View(TemplateView):
     template_name = '404.html'
+
