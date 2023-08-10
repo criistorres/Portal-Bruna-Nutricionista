@@ -29,4 +29,4 @@ class IconeForm(forms.ModelForm):
 class NotificacaoForm(forms.ModelForm):
     class Meta:
         model = Notificacao
-        fields = ['usuario','resposta','lido']
+        fields = ['usuario','resposta','gerador','lido']

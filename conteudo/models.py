@@ -36,7 +36,8 @@ class Notificacao(models.Model):
     def __str__(self):
         status = "Lida" if self.lido else "Não lida"
         gerador_username = self.gerador.username if self.gerador else 'Desconhecido'
-        return f"Notificação de {gerador_username} para {self.usuario.username} sobre resposta em {self.data_hora}. Status: {status}"
+        data_formatada = self.data_hora.strftime("%d de %B de %Y, %H:%M")
+        return f"Notificação de {self.gerador.get_full_name()} para {self.usuario.get_full_name()} sobre resposta em {data_formatada}. Status: {status}"
         
 class Icone(models.Model):
     """
@@ -127,7 +128,8 @@ class Comentario(models.Model):
         return timesince(self.data_publicacao, timezone.now())
 
     def __str__(self):
-        return f"Comentário de {self.owner.username} em {self.data_publicacao}"
+        data_formatada = self.data_publicacao.strftime("%d de %B de %Y, %H:%M")
+        return f"Comentário de {self.owner.username} em {data_formatada}"
 
 
 class Resposta(models.Model):
@@ -153,4 +155,5 @@ class Resposta(models.Model):
         return timesince(self.data_publicacao, timezone.now())
 
     def __str__(self):
-        return f"Resposta de {self.owner.username} em {self.data_publicacao}"
+        data_formatada = self.data_publicacao.strftime("%d de %B de %Y, %H:%M")
+        return f"Resposta de {self.owner.username} em {data_formatada}"

@@ -115,3 +115,5 @@ class Users(AbstractUser):
     # Define o gerenciador personalizado (UsuarioManager) para o modelo Users
     objects = UsuarioManager()
 
+
+
