@@ -5,6 +5,7 @@ from django.utils import timezone
 # from .validators import fone_regex
 from django.contrib.auth import get_user_model
 import os
+from PIL import Image
 
 # Define um validador de expressão regular para o campo de telefone (fone)
 fone_regex = RegexValidator(
@@ -87,16 +88,16 @@ class Users(AbstractUser):
     email = models.EmailField('E-mail', unique=True)
 
     # Define o campo de foto como um campo ImageField, com a label "Foto" e chamando a função user_directory_path para definir o caminho de armazenamento
-    foto = models.ImageField('Foto', upload_to=user_directory_path, null=True, blank=True)
+    # foto = models.ImageField('Foto', upload_to=user_directory_path, null=True, blank=True)
 
     # Define o campo de fone como um campo CharField, com a label "Telefone" e tamanho máximo de 15 caracteres
-    fone = models.CharField('Telefone', max_length=15, validators=[fone_regex], blank=True)
+    fone = models.CharField('Telefone', max_length=15, blank=True)
 
     # Define o campo de data de nascimento como um campo DateField, com a label "Data de Nascimento" e pode ser nulo (não obrigatório)
     data_nascimento = models.DateField('Data de Nascimento', null=True, blank=True)
 
     # Define o campo de foto como um campo ImageField, com a label "Foto" e chamando a função user_directory_path para definir o caminho de armazenamento
-    foto = models.ImageField('Foto', upload_to=user_directory_path, null=True, blank=True)
+    # foto = models.ImageField('Foto', upload_to=user_directory_path, null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     # Define o campo que será usado como o identificador do usuário (campo de login),
@@ -115,5 +116,46 @@ class Users(AbstractUser):
     # Define o gerenciador personalizado (UsuarioManager) para o modelo Users
     objects = UsuarioManager()
 
+class Genero(models.Model):
+    nome = models.CharField('Nome', max_length=50, unique=True)
+    descricao = models.TextField('Descrição', blank=True, null=True)
 
+    def __str__(self):
+        return self.nome
+
+class Profile(models.Model):
+    # Relação um-para-um com o modelo Users.
+    user = models.OneToOneField(Users, on_delete=models.CASCADE, related_name='profile')
+    # Define o campo de foto como um campo ImageField, com a label "Foto" e chamando a função user_directory_path para definir o caminho de armazenamento
+    foto = models.ImageField('Foto', upload_to=user_directory_path, null=True, blank=True)
+    # Campo de biografia.
+    bio = models.TextField('Biografia', blank=True, null=True, max_length=500)
+
+    genero = models.ForeignKey(Genero, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Gênero')
+
+    is_paciente = models.BooleanField('Você já é paciente?', default=False)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)  # Salva o objeto primeiro
+
+        if self.foto:  # Verifica se a foto foi carregada
+            img = Image.open(self.foto.path)  # Abre a imagem usando Pillow
+
+            # Corta a imagem para a relação de aspecto desejada (neste caso, 1:1)
+            width, height = img.size
+            new_dimension = min(width, height)
+            left = (width - new_dimension) / 2
+            top = (height - new_dimension) / 2
+            right = (width + new_dimension) / 2
+            bottom = (height + new_dimension) / 2
+            img = img.crop((left, top, right, bottom))
+
+            # Redimensiona a imagem para 300x300
+            output_size = (300, 300)
+            img = img.resize(output_size, Image.LANCZOS)
+
+            img.save(self.foto.path)  # Salva a imagem redimensionada
+
+    def __str__(self):
+        return f'Profile de {self.user.get_full_name()}'
 

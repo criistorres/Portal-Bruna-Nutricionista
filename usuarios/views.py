@@ -14,7 +14,44 @@ from django.contrib.auth.views import PasswordResetConfirmView
 from django.urls import reverse_lazy
 
 from .forms import PasswordResetConfirmForm
+from django.views.generic import TemplateView
+from .models import Genero
+from django.contrib import messages
+from .forms import UsersChangeForm, ProfileForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
 
+
+class UserProfileView(LoginRequiredMixin, TemplateView):
+    template_name = "index.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        context['user_form'] = UsersChangeForm(instance=user)
+        context['profile_form'] = ProfileForm(instance=user.profile)
+        context['generos'] = Genero.objects.all()
+        return context
+
+    def post(self, request):
+        user = self.request.user
+        user_form = UsersChangeForm(request.POST, instance=user)
+        profile_form = ProfileForm(request.POST, request.FILES, instance=user.profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, "Alterações salvas com sucesso.")
+            return render(request, self.template_name)
+        else:
+            errors = {}  # Aqui você pode consolidar os erros dos formulários em um dicionário
+            errors.update(user_form.errors)
+            errors.update(profile_form.errors)
+            for field_errors in errors.values():
+                for error in field_errors:
+                    messages.error(request, error)
+            return render(request, self.template_name)
+        
 class CadastroView(View):
     template_name = 'cadastro.html'
 
@@ -43,8 +80,11 @@ class CadastroView(View):
                                                         fone=fone, 
                                                         first_name=first_name, 
                                                         last_name=last_name,
-                                                        data_nascimento=birthdate,
-                                                        foto=foto)
+                                                        data_nascimento=birthdate)
+                # Atualize a foto no perfil se ela existir
+                if foto:
+                    user.profile.foto = foto
+                    user.profile.save()
 
                 return render(request, 'login.html')
         else:

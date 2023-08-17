@@ -462,6 +462,7 @@ html body {
     html body html {
       background: url("../img/clouds.png") #FFF no-repeat center center fixed; }
     html body #bgvid {
-      display: none; } }
+      display: none; 
+      background-size: cover; /* Faz a imagem de fundo cobrir toda a viewport */} } /* DEVCRIS */
 
 /*# sourceMappingURL=page-login-alt.css.map */

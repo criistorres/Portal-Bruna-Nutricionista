@@ -1,44 +1,61 @@
 {% load static %}
 <aside class="page-sidebar">
     <div class="page-logo">
-        <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative" data-toggle="modal" data-target="#modal-shortcut">
-            <img src="{% static 'img/logo.png' %}" alt="SmartAdmin WebApp" aria-roledescription="logo" style="width: 70px; height: 70px;">
+        <a href="#"
+            class="page-logo-link press-scale-down d-flex align-items-center position-relative"
+            data-toggle="modal" data-target="#modal-shortcut">
+            <img src="{% static 'img/logo.png' %}" alt="SmartAdmin WebApp"
+                aria-roledescription="logo" style="width: 70px; height: 70px;">
             <span class="page-logo-text mr-1">Portal Bruna Nutri</span>
-            <span class="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span>
-            <i class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i>
+            <span
+                class="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span>
+            <i
+                class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i>
         </a>
     </div>
     <!-- BEGIN PRIMARY NAVIGATION -->
     <nav id="js-primary-nav" class="primary-nav" role="navigation">
         <div class="nav-filter">
             <div class="position-relative">
-                <input type="text" id="nav_filter_input" placeholder="Filter menu" class="form-control" tabindex="0">
-                <a href="#" onclick="return false;" class="btn-primary btn-search-close js-waves-off" data-action="toggle" data-class="list-filter-active" data-target=".page-sidebar">
+                <input type="text" id="nav_filter_input"
+                    placeholder="Filter menu" class="form-control" tabindex="0">
+                <a href="#" onclick="return false;"
+                    class="btn-primary btn-search-close js-waves-off"
+                    data-action="toggle" data-class="list-filter-active"
+                    data-target=".page-sidebar">
                     <i class="fal fa-chevron-up"></i>
                 </a>
             </div>
         </div>
         <div class="info-card">
-            {% if user.foto %}
-            <img src="{{ user.foto.url }}" class="profile-image rounded-circle" alt="{{ user.first_name }} {{ user.last_name }}">
+            {% if user.profile.foto %}
+            <img src="{{ user.profile.foto.url }}"
+                class="profile-image rounded-circle"
+                alt="{{ user.first_name }} {{ user.last_name }}">
             {% else %}
-            <img src="{% static 'img/demo/avatars/avatar-m.png' %}" class="profile-image rounded-circle" alt="{{ user.first_name }} {{ user.last_name }}">
+            <img src="{% static 'img/demo/avatars/avatar-m.png' %}"
+                class="profile-image rounded-circle"
+                alt="{{ user.first_name }} {{ user.last_name }}">
             {% endif %}
             <div class="info-card-text">
                 <a href="#" class="d-flex align-items-center text-white">
                     <span class="text-truncate text-truncate-sm d-inline-block">
                         {% if request.user.is_authenticated %}
-                            Olá, {{ request.user.get_full_name }}
+                        Olá, {{ request.user.get_full_name }}
                         {% else %}
-                            Nome de Usuário
+                        Nome de Usuário
                         {% endif %}
                     </span>
                 </a>
-                <span class="d-inline-block text-truncate text-truncate-sm">Bem vindo(a)!</span>
+                <span class="d-inline-block text-truncate text-truncate-sm">Bem
+                    vindo(a)!</span>
             </div>
-            
-            <!-- <img src="{% static 'img/card-backgrounds/cover-7-lg.png' %}" class="cover" alt="cover"> -->
-            <a href="#" onclick="return false;" class="pull-trigger-btn" data-action="toggle" data-class="list-filter-active" data-target=".page-sidebar" data-focus="nav_filter_input">
+
+            <img src="{% static 'img/card-backgrounds/cover-7-lg.png' %}"
+                class="cover" alt="cover">
+            <a href="#" onclick="return false;" class="pull-trigger-btn"
+                data-action="toggle" data-class="list-filter-active"
+                data-target=".page-sidebar" data-focus="nav_filter_input">
                 <i class="fal fa-angle-down"></i>
             </a>
         </div>
@@ -47,92 +64,188 @@
         -->
         <ul id="js-nav-menu" class="nav-menu">
             <li class="active">
-                <a href="{% url 'index' %}" title="Blank Project" data-filter-tags="blank page">
+                <a href="{% url 'index' %}" title="Blank Project"
+                    data-filter-tags="blank page">
                     <i class="fal fa-globe"></i>
                     <span class="nav-link-text" data-i18n="nav.blankpage">Inicio!</span>
                 </a>
             </li>
+            {% if request.user.is_superuser %}
+            <li class="nav-title">Painel Admin</li>
+            <li>
+                <a href="#" title="Category" data-filter-tags="category">
+                    <i class="fal fa-user-circle"></i>
+                    <span class="nav-link-text" data-i18n="nav.category">Administração</span>
+                </a>
+
+                <ul>
+                    <li>
+
+                        <li>
+                            <a href="{% url 'conteudo:conteudo_list' %}" 
+                                title="Sublevel Item"
+                                data-filter-tags="utilities menu child sublevel item">
+                                <span class="nav-link-text"
+                                    data-i18n="nav.utilities_menu_child_sublevel_item">Conteúdos</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" id="linkCadastrarCategoria"
+                                title="Sublevel Item"
+                                data-filter-tags="utilities menu child sublevel item">
+                                <span class="nav-link-text"
+                                    data-i18n="nav.utilities_menu_child_sublevel_item">Cadastrar
+                                    Categoria</span>
+                            </a>
+                        </li>
+
+                    </li>
+
+                </ul>
+            </li>
+            {% endif %}
             <li class="nav-title">Navegação</li>
             <li>
                 <a href="#" title="Category" data-filter-tags="category">
                     <i class="fal fa-user-circle"></i>
-                    <span class="nav-link-text" data-i18n="nav.category">Meu espaço</span>
+                    <span class="nav-link-text" data-i18n="nav.category">Meu
+                        espaço</span>
                 </a>
-                
+
                 <ul>
                     <li>
                         <li>
-                            <a href="#" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
-                                <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Dietas</span>
+                            <a href="#" title="Sublevel Item"
+                                data-filter-tags="utilities menu child sublevel item">
+                                <span class="nav-link-text"
+                                    data-i18n="nav.utilities_menu_child_sublevel_item">Dietas</span>
                             </a>
-                            
+
                         </li>
                         <li>
-                            <a href="#" title="Sublevel Item" data-filter-tags="utilities menu child sublevel item">
-                                <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">Exames</span>
+                            <a href="#" title="Sublevel Item"
+                                data-filter-tags="utilities menu child sublevel item">
+                                <span class="nav-link-text"
+                                    data-i18n="nav.utilities_menu_child_sublevel_item">Exames</span>
                             </a>
-                            
+
                         </li>
-                        
+                        <li>
+                            <a href="#" title="Sublevel Item"
+                                data-filter-tags="utilities menu child sublevel item"
+                                data-toggle="modal" data-target=".modal-profile">
+                                <span class="nav-link-text"
+                                    data-i18n="nav.utilities_menu_child_sublevel_item">Perfil</span>
+                            </a>
+                        </li>
+
                     </li>
                     <li class="disabled">
-                        <a href="javascript:void(0);" title="Disabled item" data-filter-tags="utilities disabled item">
-                            <span class="nav-link-text" data-i18n="nav.utilities_disabled_item">Disabled item</span>
+                        <a href="javascript:void(0);" title="Disabled item"
+                            data-filter-tags="utilities disabled item">
+                            <span class="nav-link-text"
+                                data-i18n="nav.utilities_disabled_item">Disabled
+                                item</span>
                         </a>
                     </li>
                 </ul>
             </li>
-            
+
             {% for categoria in categorias_sidebar %}
             <li>
-                <a href="#" title="Category" data-filter-tags="{{ categoria.nome }}">
+                <a href="#" title="Category"
+                    data-filter-tags="{{ categoria.nome }}">
                     <i class="fas {{ categoria.icone.icone_css_class }}"></i>
                     <span class="nav-link-text" data-i18n="nav.category">{{ categoria.nome }}</span>
                 </a>
                 <ul>
                     {% for conteudo in categoria.conteudo_set.all %}
                     <li>
-                        <a href="{% url 'conteudo:conteudo_detail' conteudo.id %}" title="Sublevel Item"
+                        <a
+                            href="{% url 'conteudo:conteudo_detail' conteudo.id %}"
+                            title="Sublevel Item"
                             data-filter-tags="utilities menu child sublevel item">
-                            <span class="nav-link-text" data-i18n="nav.utilities_menu_child_sublevel_item">{{ conteudo.titulo }}</span>
+                            <span class="nav-link-text"
+                                data-i18n="nav.utilities_menu_child_sublevel_item">{{ conteudo.titulo }}</span>
                         </a>
                     </li>
                     {% endfor %}
                 </ul>
             </li>
             {% endfor %}
-            
+
         </ul>
         <div class="filter-message js-filter-message bg-success-600"></div>
     </nav>
     <!-- END PRIMARY NAVIGATION -->
     <!-- NAV FOOTER -->
     <div class="nav-footer shadow-top">
-        <a href="#" onclick="return false;" data-action="toggle" data-class="nav-function-minify" class="hidden-md-down">
+        <a href="#" onclick="return false;" data-action="toggle"
+            data-class="nav-function-minify" class="hidden-md-down">
             <i class="ni ni-chevron-right"></i>
             <i class="ni ni-chevron-right"></i>
         </a>
         <ul class="list-table m-auto nav-footer-buttons">
             <li>
-                <a href="https://www.instagram.com/brunaealvesnutri/?igshid=MzRlODBiNWFlZA%3D%3D" target="_blank" data-toggle="tooltip" data-placement="top">
+                <a
+                    href="https://www.instagram.com/brunaealvesnutri/?igshid=MzRlODBiNWFlZA%3D%3D"
+                    target="_blank" data-toggle="tooltip" data-placement="top">
                     <i class="fab fa-instagram"></i>
                 </a>
             </li>
             <li>
-                <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Chat logs">
+                <a href="javascript:void(0);" data-toggle="tooltip"
+                    data-placement="top" title="Chat logs">
                     <i class="fal fa-comments"></i>
                 </a>
             </li>
             <li>
-                <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Support Chat">
+                <a href="javascript:void(0);" data-toggle="tooltip"
+                    data-placement="top" title="Support Chat">
                     <i class="fal fa-life-ring"></i>
                 </a>
             </li>
             <li>
-                <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Make a call">
+                <a href="javascript:void(0);" data-toggle="tooltip"
+                    data-placement="top" title="Make a call">
                     <i class="fal fa-phone"></i>
                 </a>
             </li>
         </ul>
     </div> <!-- END NAV FOOTER -->
 </aside>
+<!-- Chamada de Modal Publicar Conteudo -->
+<!-- <script>
+    $(document).ready(function() {
+        $('#linkPublicarConteudo').on('click', function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: "{% url 'conteudo:cadastrar_conteudo' %}",
+                type: 'get',
+                dataType: 'html',
+                success: function(data) {
+                    $(".modal-cadastra-conteudo").html(data);
+                    $(".modal-cadastra-conteudo").modal('show');
+                }
+            });
+        });
+    });
+</script> -->
+<!-- Chamada de Modal Cadstrar Categoria -->
+<script>
+    $(document).ready(function() {
+        $('#linkCadastrarCategoria').on('click', function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: "{% url 'conteudo:cadastrar_categoria' %}",
+                type: 'get',
+                dataType: 'html',
+                success: function(data) {
+                    $(".modal-cadastra-categoria").html(data);
+                    $(".modal-cadastra-categoria").modal('show');
+                }
+            });
+        });
+    });
+</script>

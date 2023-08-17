@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- BEGIN Page Content -->
+
+<main id="js-page-content" role="main" class="page-content">
+    <ol class="breadcrumb page-breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0);">Portal</a></li>
+        <li class="breadcrumb-item">Conteudo</li>
+        <li class="breadcrumb-item">Lista Conteudos</li>
+        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span
+                class="js-get-date"></span></li>
+    </ol>
+    <div class="subheader">
+        <h1 class="subheader-title">
+            <i class='subheader-icon fal fa-globe'></i> Lista de Conteúdos
+        </h1>
+        <div class="subheader-block">
+            
+        </div>
+    </div>
+    <div class="container mt-4">
+        <div class="mb-4">
+            <button id="btnPublicarConteudo" class="btn btn-primary">
+                <i class="fa fa-plus"></i> Publicar Conteúdo
+            </button>
+        </div>
+    
+        <div class="table-responsive mt-3">
+            <table class="table table-bordered table-hover">
+                <!-- Alterando a cor do cabeçalho da tabela -->
+                <thead class="thead-light">
+                    <tr>
+                        <th>Título</th>
+                        <th>Data de Publicação</th>
+                        <!-- Campo "Descrição" removido -->
+                        <th>Link do Vídeo</th>
+                        <th>Categoria</th>
+                        <th>Ativo</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for conteudo in conteudos %}
+<tr>
+    <td>{{ conteudo.titulo }}</td>
+    <td>{{ conteudo.data_publicacao }}</td>
+    <td><a href="{{ conteudo.link_video }}" target="_blank">Visualizar Vídeo</a></td>
+    <td>{{ conteudo.categoria.nome }}</td>
+    <td>
+        {% if conteudo.ativo %}
+            <span class="badge badge-success">Ativo</span>
+        {% else %}
+            <span class="badge badge-danger">Inativo</span>
+        {% endif %}
+    </td>
+    <td>
+        <!-- Botão de edição para abrir o modal específico -->
+        <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editConteudoModal{{ conteudo.id }}"><i class="fa fa-edit"></i></a>
+        <a href="#" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+    </td>
+</tr>
+
+<!-- O modal correspondente ao conteúdo atual -->
+<div class="modal fade" id="editConteudoModal{{ conteudo.id }}" tabindex="-1" role="dialog" aria-labelledby="editConteudoModalLabel{{ conteudo.id }}" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editConteudoModalLabel{{ conteudo.id }}">Editar Conteúdo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="conteudoForm{{ conteudo.id }}" method="post" action="{% url 'conteudo:editar_conteudo' conteudo.id %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="titulo{{ conteudo.id }}">Título:</label>
+                        <input type="text" id="titulo{{ conteudo.id }}" name="titulo" class="form-control" value="{{ conteudo.titulo }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="data_publicacao{{ conteudo.id }}">Data de Publicação:</label>
+                        <input type="date" id="data_publicacao{{ conteudo.id }}" name="data_publicacao" class="form-control" value="{{ conteudo.data_publicacao|date:'Y-m-d' }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="link_video{{ conteudo.id }}">Link do Vídeo:</label>
+                        <input type="url" id="link_video{{ conteudo.id }}" name="link_video" class="form-control" value="{{ conteudo.link_video }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descricao{{ conteudo.id }}">Descrição:</label>
+                        <textarea id="descricao{{ conteudo.id }}" name="descricao" class="form-control">{{ conteudo.descricao }}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="categoria{{ object.id }}">Categoria:</label>
+                        <select id="categoria{{ object.id }}" name="categoria" class="form-control">
+                            {% for categoria in categorias %}
+                                <option value="{{ conteudo.categoria.id }}" {% if object.categoria.id == categoria.id %}selected{% endif %}>{{ conteudo.categoria.nome }}</option>
+                            {% endfor %}
+                        </select>
+                        <i class="fal fa-plus" style="cursor: pointer;" id="iconOpenCategoriaModal"></i>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="ativo{{ conteudo.id }}" name="ativo" {% if conteudo.ativo %}checked{% endif %}>
+                            <label class="custom-control-label" for="ativo{{ conteudo.id }}">Ativo</label>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+                </tbody>
+            </table>
+        </div>
+    
+        <!-- Paginação -->
+        {% if is_paginated %}
+        <div class="pagination mt-4">
+            <nav>
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a href="?page=1" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+                    </li>
+                    <li class="page-item">
+                        <a href="?page={{ page_obj.previous_page_number }}" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+                    </li>
+                    {% endif %}
+                    
+                    <li class="page-item disabled">
+                        <span class="page-link">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+                    </li>
+    
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a href="?page={{ page_obj.next_page_number }}" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+                    </li>
+                    <li class="page-item">
+                        <a href="?page={{ page_obj.paginator.num_pages }}" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+        {% endif %}
+    
+    </div>
+    <script>
+        $(document).ready(function() {
+            // Para o novo botão
+            $('#btnPublicarConteudo').on('click', function(e) {
+                e.preventDefault();
+                showPublishContentModal();
+            });
+    
+            function showPublishContentModal() {
+                $.ajax({
+                    url: "{% url 'conteudo:cadastrar_conteudo' %}",
+                    type: 'get',
+                    dataType: 'html',
+                    success: function(data) {
+                        $(".modal-cadastra-conteudo").html(data);
+                        $(".modal-cadastra-conteudo").modal('show');
+                    }
+                });
+            }
+        });
+        $('.btn-edit-conteudo').on('click', function(e) {
+        e.preventDefault();
+
+        // Pegando o ID do conteúdo associado ao botão de edição
+        const conteudoId = $(this).data('id');
+
+        // Fazendo uma requisição para pegar o formulário de edição
+        $.ajax({
+            url: `/conteudo/editar_conteudo/${conteudoId}/`,
+            type: 'get',
+            dataType: 'html',
+            success: function(data) {
+                $("#editConteudoModal .modal-body").html(data);
+                $("#editConteudoModal").modal('show');
+            }
+        });
+    });
+
+    </script>
+
+
+
+{% endblock %}

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import CadastroView, LoginView, LogoutView, CustomPasswordResetConfirmView
+from .views import CadastroView, LoginView, LogoutView, CustomPasswordResetConfirmView, UserProfileView
 
 from django.contrib.auth import views as auth_views
 
@@ -7,6 +7,7 @@ urlpatterns = [
     path('cadastro/', CadastroView.as_view(), name='cadastro'),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
+    path('', UserProfileView.as_view(), name='profile_update'),
 
     
     path('password_reset/', auth_views.PasswordResetView.as_view(

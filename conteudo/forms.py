@@ -1,15 +1,34 @@
 from django import forms
 from .models import Conteudo, Categoria, Comentario, Resposta, Icone, Notificacao
 
+from crispy_forms.helper import FormHelper  # Importando o FormHelper do Crispy Forms
+from crispy_forms.layout import Submit  # Importando o layout Submit do Crispy Forms
+
+
 class ConteudoForm(forms.ModelForm):
     class Meta:
-        model = Conteudo
-        fields = ['titulo', 'data_publicacao', 'link_video', 'descricao', 'categoria', 'ativo']
+        model = Conteudo  # Especificando o modelo Conteudo para o formulário
+        fields = ['titulo', 'data_publicacao', 'link_video', 'descricao', 'categoria', 'ativo']  # Campos do modelo que serão exibidos no formulário
+
+    def __init__(self, *args, **kwargs):
+        super(ConteudoForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()  # Inicializando o FormHelper para personalizar o formulário
+        self.helper.form_method = 'post'  # Definindo o método do formulário como 'post'
+        # Adicionando um botão de submit com o texto 'Cadastrar' e a classe CSS 'btn btn-primary'
+        self.helper.add_input(Submit('submit', 'Cadastrar', css_class='btn btn-primary'))
 
 class CategoriaForm(forms.ModelForm):
     class Meta:
         model = Categoria
         fields = ['ativo','nome','icone']
+
+    def __init__(self, *args, **kwargs):
+        super(CategoriaForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()  # Inicializando o FormHelper para personalizar o formulário
+        self.helper.form_method = 'post'  # Definindo o método do formulário como 'post'
+        # Adicionando um botão de submit com o texto 'Cadastrar' e a classe CSS 'btn btn-primary'
+        self.helper.add_input(Submit('submit', 'Cadastrar', css_class='btn btn-primary'))
+
 
 class ComentarioForm(forms.ModelForm):
     class Meta:

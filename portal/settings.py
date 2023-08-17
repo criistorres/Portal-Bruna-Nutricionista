@@ -74,6 +74,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
 
                 'core.context_processors.categorias_sidebar',
+                'core.context_processors.user_details',
+                'core.context_processors.conteudos_ativos',
             ],
         },
     },

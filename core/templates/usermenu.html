@@ -2,8 +2,8 @@
 <!-- Page User menu - Pagina de menu do usuário -->
 <div>
     <a href="#" data-toggle="dropdown" title="{{ request.user.email }}" class="header-icon d-flex align-items-center justify-content-center ml-2">
-        {% if user.foto %}
-        <img src="{{ user.foto.url }}" class="profile-image rounded-circle" alt="Dr. Codex Lantern">
+        {% if user.profile.foto %}
+        <img src="{{ user.profile.foto.url }}" class="profile-image rounded-circle" alt="Dr. Codex Lantern">
         {% else %}
         <img src="{% static 'img/demo/avatars/avatar-m.png' %}" class="profile-image rounded-circle" alt="Dr. Codex Lantern">
         {% endif %}
@@ -16,8 +16,8 @@
         <div class="dropdown-header bg-trans-gradient d-flex flex-row py-4 rounded-top">
             <div class="d-flex flex-row align-items-center mt-1 mb-1 color-white">
                 <span class="mr-2">
-                    {% if user.foto %}
-                    <img src="{{ user.foto.url }}" class="profile-image rounded-circle" alt="Dr. Codex Lantern">
+                    {% if user.profile.foto %}
+                    <img src="{{ user.profile.foto.url }}" class="profile-image rounded-circle" alt="Dr. Codex Lantern">
                     {% else %}
                     <img src="{% static 'img/demo/avatars/avatar-m.png' %}" class="profile-image rounded-circle" alt="Dr. Codex Lantern">
                     {% endif %}
@@ -29,8 +29,8 @@
             </div>
         </div>
         <div class="dropdown-divider m-0"></div>
-        <a href="#" class="dropdown-item" data-action="app-reset">
-            <span data-i18n="drpdwn.reset_layout">Reset Layout</span>
+        <a href="" class="dropdown-item" data-toggle="modal" data-target=".modal-profile">
+            <span data-i18n="drpdwn.reset_layout">Perfil</span>
         </a>
         <a href="#" class="dropdown-item" data-toggle="modal" data-target=".js-modal-settings">
             <span data-i18n="drpdwn.settings">Settings</span>

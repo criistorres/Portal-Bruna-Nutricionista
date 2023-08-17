@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- BEGIN Page Content -->
+
+<main id="js-page-content" role="main" class="page-content">
+    <ol class="breadcrumb page-breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0);">Portal</a></li>
+        <li class="breadcrumb-item">Conteudo</li>
+        <li class="breadcrumb-item">Lista Conteudos</li>
+        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span
+                class="js-get-date"></span></li>
+    </ol>
+    <div class="subheader">
+        <h1 class="subheader-title">
+            <i class='subheader-icon fal fa-globe'></i> Lista de Conteúdos
+        </h1>
+        <div class="subheader-block">
+            
+        </div>
+    </div>
+    <div class="container mt-4">
+        <div class="mb-4">
+            <button id="btnPublicarConteudo" class="btn btn-primary">
+                <i class="fa fa-plus"></i> Publicar Conteúdo
+            </button>
+        </div>
+    
+        <div class="table-responsive mt-3">
+            <table class="table table-bordered table-hover">
+                <!-- Alterando a cor do cabeçalho da tabela -->
+                <thead class="thead-light">
+                    <tr>
+                        <th>Título</th>
+                        <th>Data de Publicação</th>
+                        <!-- Campo "Descrição" removido -->
+                        <th>Link do Vídeo</th>
+                        <th>Categoria</th>
+                        <th>Ativo</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for conteudo in conteudos %}
+<tr>
+    <td>{{ conteudo.titulo }}</td>
+    <td>{{ conteudo.data_publicacao }}</td>
+    <td><a href="{{ conteudo.link_video }}" target="_blank">Visualizar Vídeo</a></td>
+    <td>{{ conteudo.categoria.nome }}</td>
+    <td>
+        {% if conteudo.ativo %}
+            <span class="badge badge-success">Ativo</span>
+        {% else %}
+            <span class="badge badge-danger">Inativo</span>
+        {% endif %}
+    </td>
+    <td>
+        <!-- Botão de edição para abrir o modal específico -->
+        <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+        <a href="#" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+    </td>
+</tr>
+{% endfor %}
+                </tbody>
+            </table>
+        </div>
+    
+        <!-- Paginação -->
+        {% if is_paginated %}
+        <div class="pagination mt-4">
+            <nav>
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a href="?page=1" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+                    </li>
+                    <li class="page-item">
+                        <a href="?page={{ page_obj.previous_page_number }}" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+                    </li>
+                    {% endif %}
+                    
+                    <li class="page-item disabled">
+                        <span class="page-link">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+                    </li>
+    
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a href="?page={{ page_obj.next_page_number }}" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+                    </li>
+                    <li class="page-item">
+                        <a href="?page={{ page_obj.paginator.num_pages }}" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+        {% endif %}
+    
+    </div>
+    <script>
+        // Espera até que o documento HTML esteja totalmente carregado
+        $(document).ready(function() {
+            // Define um evento de clique para o botão com ID "btnPublicarConteudo"
+            $('#btnPublicarConteudo').on('click', function(e) {
+                // Impede o comportamento padrão do clique (recarregar a página, por exemplo)
+                e.preventDefault();
+                // Chama a função para mostrar a janela modal de publicação de conteúdo
+                showPublishContentModal();
+            });
+    
+            // Função para exibir a janela modal de publicação de conteúdo
+            function showPublishContentModal() {
+                // Faz uma solicitação AJAX para obter o conteúdo HTML da página de cadastro de conteúdo
+                $.ajax({
+                    // URL para a página de cadastro de conteúdo usando a sintaxe do Django
+                    url: "{% url 'conteudo:cadastrar_conteudo' %}",
+                    // Tipo de solicitação: GET
+                    type: 'get',
+                    // Espera que a resposta seja em formato HTML
+                    dataType: 'html',
+                    // Função a ser executada quando a solicitação for bem-sucedida
+                    success: function(data) {
+                        // Insere o conteúdo HTML recebido na classe da janela modal
+                        $(".modal-cadastra-conteudo").html(data);
+                        // Mostra a janela modal ao usuário
+                        $(".modal-cadastra-conteudo").modal('show');
+                    }
+                });
+            }
+        });
+    </script>
+
+
+
+{% endblock %}
