@@ -56,7 +56,9 @@
     </td>
     <td>
         <!-- Botão de edição para abrir o modal específico -->
-        <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+        <!-- dê a cada botão um ID único -->
+        <a href="#" data-pk="{{ conteudo.pk }}" class="btn btn-sm btn-primary edit-conteudo-btn"><i class="fa fa-edit"></i></a>
+
         <a href="#" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
     </td>
 </tr>
@@ -129,7 +131,30 @@
             }
         });
     </script>
-
-
+    <script>
+        $(document).ready(function() {
+            // Use o evento "on" para detectar cliques em qualquer botão com a classe "edit-conteudo-btn"
+            $(document).on('click', '.edit-conteudo-btn', function(e) {
+                e.preventDefault();
+                
+                // Recupere o valor de "data-pk" do botão clicado para obter o pk do conteúdo
+                var pk = $(this).data('pk');
+                showPublishContentModal(pk);
+            });
+        });
+    
+        function showPublishContentModal(pk) {
+            var url = "{% url 'conteudo:editar_conteudo' pk=0 %}".replace('0', pk);
+            $.ajax({
+                url: url,
+                type: 'get',
+                dataType: 'html',
+                success: function(data) {
+                    $(".modal-edita-conteudo").html(data);
+                    $(".modal-edita-conteudo").modal('show');
+                }
+            });
+        }
+    </script>
 
 {% endblock %}

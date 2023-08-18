@@ -1,0 +1,99 @@
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+<div class="modal fade modal-edita-conteudo" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                </button>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <header class="text-center py-4">
+                        <h1>Edição de Conteúdo</h1>
+                    </header>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form id="conteudoForm" method="post" action="{% url 'conteudo:editar_conteudo' pk=0 %}" enctype="multipart/form-data">
+
+                            {% csrf_token %}
+                            <input type="hidden" id="idConteudoValue" name="idConteudoValue" value="{{ id_conteudo }}">
+                            <div class="form-group">
+                                <label for="{{ conteudo_form.titulo.id_for_label }}"><i class="fal fa-book"></i> Título:</label>
+                                <input type="text" id="{{ conteudo_form.titulo.id_for_label }}" name="{{ conteudo_form.titulo.name }}" class="form-control" value="{{ conteudo_form.titulo.value }}" required>
+                            </div>
+                        
+                            <div class="form-group">
+                                <label for="{{ conteudo_form.data_publicacao.id_for_label }}"><i class="fal fa-calendar-alt"></i> Data de Publicação:</label>
+                                <input type="date" id="{{ conteudo_form.data_publicacao.id_for_label }}" name="{{ conteudo_form.data_publicacao.name }}" class="form-control" value="{{ conteudo_form.data_publicacao.value|date:'Y-m-d' }}" required>
+                            </div>
+                        
+
+                            
+                            <div class="form-group">
+                                <label for="{{ conteudo_form.link_video.id_for_label }}"><i class="fal fa-video"></i> Link do Vídeo:</label>
+                                <input type="url" id="{{ conteudo_form.link_video.id_for_label }}" name="{{ conteudo_form.link_video.name }}" class="form-control" value="{{ conteudo_form.link_video.value }}" required>
+                            </div>
+                        
+                            <div class="form-group">
+                                <label for="{{ conteudo_form.descricao.id_for_label }}"><i class="fal fa-info-circle"></i> Descrição:</label>
+                                <textarea id="{{ conteudo_form.descricao.id_for_label }}" name="{{ conteudo_form.descricao.name }}" class="form-control">{{ conteudo_form.descricao.value }}</textarea>
+                            </div>
+                        
+                            <div class="form-group">
+                                <label for="{{ conteudo_form.categoria.id_for_label }}"><i class="fal fa-tags"></i> Categoria:</label>
+                                <select id="{{ conteudo_form.categoria.id_for_label }}" name="{{ conteudo_form.categoria.name }}" class="form-control">
+                                    {% for categoria in categorias %}
+                                        <option value="{{ categoria.id }}" {% if conteudo_form.categoria.value == categoria.id %}selected{% endif %}>{{ categoria.nome }}</option>
+                                    {% endfor %}
+                                </select>
+                                <!-- Ícone para abrir o modal de cadastro de categoria -->
+                                <i class="fal fa-plus" style="cursor: pointer;" id="iconOpenCategoriaModal"></i>
+                            </div>
+                        
+                            <div class="form-group">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="{{ conteudo_form.ativo.id_for_label }}" name="{{ conteudo_form.ativo.name }}" {% if conteudo_form.ativo.value %}checked{% endif %}>
+                                    <label class="custom-control-label" for="{{ conteudo_form.ativo.id_for_label }}">Ativo</label>
+                                </div>
+                            </div>
+                        
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                            </div>
+                        </form>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        // Abrir o modal de "cadastro de categoria" quando o ícone for clicado
+        $('#iconOpenCategoriaModal').on('click', function(e) {
+            e.preventDefault();
+
+            console.log("Ícone de abertura do modal de categoria clicado!"); // Adicione esta linha
+            
+            // Fecha o modal de "cadastro de conteúdo"
+            $('.modal-edita-conteudo').modal('hide');
+
+            // Aguarda um momento e abre o modal de "cadastro de categoria"
+            setTimeout(function(){
+                $(".modal-cadastra-categoria").modal('show');
+            }, 10);
+        });
+    });
+</script>
+
+

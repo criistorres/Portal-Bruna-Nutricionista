@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import DetailView, View
 from .models import Conteudo, Comentario, Resposta, Categoria, Notificacao, Icone
-from django.views.generic import TemplateView,ListView, UpdateView
+from django.views.generic import TemplateView,ListView
 from usuarios.models import Users
 
 from django.contrib import messages
@@ -10,6 +10,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.urls import reverse_lazy, reverse
 from django.views.generic.edit import CreateView
 from .forms import ConteudoForm, CategoriaForm
+
+from django.http import JsonResponse
+from django.views.generic.edit import UpdateView
 
     
 class ResponderComentarioView(LoginRequiredMixin, View):
@@ -132,25 +135,47 @@ class ConteudoDetailView(LoginRequiredMixin, DetailView):
 class ConteudoUpdateView(LoginRequiredMixin, UpdateView):
     model = Conteudo
     form_class = ConteudoForm
-    template_name = 'modal_cadastro_conteudo.html'
+    template_name = 'modal_edita_conteudo.html'
+    success_url = reverse_lazy('conteudos.html')
 
-    def get_success_url(self):
-        return reverse('conteudo:conteudo_detail', args=[self.object.id])
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['conteudo_form'] = ConteudoForm(instance=self.object)  # Carrega o objeto existente no formulário
+        context['categorias'] = Categoria.objects.all()
+        context['conteudo'] = self.object
+        context['id_conteudo'] = context['conteudo'].pk
+        return context
 
     def get(self, request, *args, **kwargs):
-        self.object = self.get_object()  # Obtém o objeto a ser atualizado
-        context = {
-            'conteudo_form': self.get_form(),  # Usa o formulário preenchido com os valores atuais
-            'categorias': Categoria.objects.all()
-        }
+        self.object = self.get_object()  # Obtenha o objeto baseado no pk fornecido na URL
+        context = self.get_context_data(object=self.object)
         return render(request, self.template_name, context)
+    
+    def post(self, request, *args, **kwargs):
+        id_conteudo = request.POST.get('idConteudoValue', None)
+        
+        try:
+            # Obtém o objeto baseado no id_conteudo
+            self.object = Conteudo.objects.get(pk=id_conteudo)
+        except Conteudo.DoesNotExist:
+            messages.error(self.request, 'Erro: Conteúdo não encontrado.')
+            return redirect('index')
 
-    def form_valid(self, form):
-        response = super().form_valid(form)
-        messages.success(self.request, 'Conteúdo atualizado com sucesso!')
-        return response
+        # Instancia o formulário
+        form = self.form_class(request.POST, request.FILES, instance=self.object)
 
-    def form_invalid(self, form):
-        response = super().form_invalid(form)
-        messages.error(self.request, 'Ocorreu um erro no processamento da atualização, revise o formulário!')
-        return redirect('index')
+        # Verifica se o formulário é válido
+        if form.is_valid():
+            # Salva as alterações no objeto
+            form.save()
+            
+            messages.success(self.request, 'Conteúdo atualizado com sucesso!')
+            return redirect(self.get_success_url())
+        else:
+            # Se o formulário não for válido, retorne o formulário com os erros
+            messages.error(self.request, 'Ocorreu um erro na atualização. Por favor, revise o formulário!')
+            return redirect('index')  # ou qualquer outra URL padrão que você desejar
+
+    def get_success_url(self):
+        # Redireciona para a página de detalhes do conteúdo atualizado
+        return reverse('conteudo:conteudo_list')
