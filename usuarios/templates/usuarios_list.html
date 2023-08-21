@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- BEGIN Page Content -->
+
+<main id="js-page-content" role="main" class="page-content">
+    <ol class="breadcrumb page-breadcrumb">
+        <!-- ... -->
+    </ol>
+    <div class="subheader">
+        <h1 class="subheader-title">
+            <i class='subheader-icon fal fa-globe'></i> Usuários
+        </h1>
+        
+    </div>
+    <div class="row subheader-block">
+        <!-- Card para o total de usuários -->
+        <div class="col-md-6">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <h5 class="card-title">Total de Usuários</h5>
+                    <p class="card-text">{{ total_usuarios }}</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card para o total de pacientes -->
+        <div class="col-md-6">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5 class="card-title">Pacientes</h5>
+                    <p class="card-text">{{ total_pacientes }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-4">
+        <!-- Div para a pesquisa que envia a pesquisa para a view UserListView no metodo get_queryset -->
+        <form method="get" class="mb-3">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Pesquisar" value="{{ request.GET.q }}">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </form>
+        
+        <div class="table-responsive mt-3">
+            <table class="table table-bordered table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th></th>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Paciente?</th> <!-- Nova coluna -->
+                        <th>Biografia</th>
+                        <th>Gênero</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in usuarios %}
+                    <tr>
+                        {% if usuario.perfil.foto %}
+                        <td><img src="{{ usuario.perfil.foto.url }}" class="profile-image rounded-circle" alt="Foto de perfil"></td>
+                        {% else %}
+                        <td><img src="{% static 'img/demo/avatars/avatar-m.png' %}" class="profile-image rounded-circle" alt="Foto de perfil"></td>
+                        {% endif %}
+                        <td><a href="">{{ usuario.user.first_name }} {{ usuario.user.last_name }}</a></td>
+                        <td>{{ usuario.user.email }}</td>
+                        <td>
+                            {% if usuario.perfil.is_paciente %}
+                            <span class="badge badge-success">Sim</span>
+                            {% else %}
+                            <span class="badge badge-danger">Não</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ usuario.perfil.bio }}</td>
+                        <td>{{ usuario.perfil.genero.nome }}</td>
+                        <td>
+                            <a href="{% url 'usuarios:usuarios_edit' pk=usuario.user.pk %}" class="btn btn-sm btn-primary edit-usuario-btn"><i class="fa fa-edit"></i></a>
+                            <a href="{% url 'usuarios:usuarios_delete' pk=usuario.user.pk %}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+
+        <!-- Paginação -->
+        {% if is_paginated %}
+        <div class="pagination mt-4">
+            <nav>
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a href="?page=1" class="page-link"
+                            aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+                    </li>
+                    <li class="page-item">
+                        <a href="?page={{ page_obj.previous_page_number }}"
+                            class="page-link" aria-label="Previous"><span
+                                aria-hidden="true">&laquo;</span></a>
+                    </li>
+                    {% endif %}
+
+                    <li class="page-item disabled">
+                        <span class="page-link">Página {{ page_obj.number }}
+                            de {{ page_obj.paginator.num_pages }}</span>
+                    </li>
+
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a href="?page={{ page_obj.next_page_number }}"
+                            class="page-link" aria-label="Next"><span
+                                aria-hidden="true">&raquo;</span></a>
+                    </li>
+                    <li class="page-item">
+                        <a href="?page={{ page_obj.paginator.num_pages }}"
+                            class="page-link" aria-label="Last"><span
+                                aria-hidden="true">&raquo;&raquo;</span></a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+        {% endif %}
+
+    </div>
+<!-- </main> -->
+
+
+        <script>
+        // Espera até que o documento HTML esteja totalmente carregado
+        $(document).ready(function() {
+            // Define um evento de clique para o botão com ID "btnPublicarConteudo"
+            $('#btnPublicarConteudo').on('click', function(e) {
+                // Impede o comportamento padrão do clique (recarregar a página, por exemplo)
+                e.preventDefault();
+                // Chama a função para mostrar a janela modal de publicação de conteúdo
+                showPublishContentModal();
+            });
+    
+            // Função para exibir a janela modal de publicação de conteúdo
+            function showPublishContentModal() {
+                // Faz uma solicitação AJAX para obter o conteúdo HTML da página de cadastro de conteúdo
+                $.ajax({
+                    // URL para a página de cadastro de conteúdo usando a sintaxe do Django
+                    url: "{% url 'conteudo:cadastrar_conteudo' %}",
+                    // Tipo de solicitação: GET
+                    type: 'get',
+                    // Espera que a resposta seja em formato HTML
+                    dataType: 'html',
+                    // Função a ser executada quando a solicitação for bem-sucedida
+                    success: function(data) {
+                        // Insere o conteúdo HTML recebido na classe da janela modal
+                        $(".modal-cadastra-conteudo").html(data);
+                        // Mostra a janela modal ao usuário
+                        $(".modal-cadastra-conteudo").modal('show');
+                    }
+                });
+            }
+        });
+    </script>
+        <script>
+        $(document).ready(function() {
+            // Use o evento "on" para detectar cliques em qualquer botão com a classe "edit-conteudo-btn"
+            $(document).on('click', '.edit-conteudo-btn', function(e) {
+                e.preventDefault();
+                
+                // Recupere o valor de "data-pk" do botão clicado para obter o pk do conteúdo
+                var pk = $(this).data('pk');
+                showPublishContentModal(pk);
+            });
+        });
+    
+        function showPublishContentModal(pk) {
+            var url = "{% url 'conteudo:editar_conteudo' pk=0 %}".replace('0', pk);
+            $.ajax({
+                url: url,
+                type: 'get',
+                dataType: 'html',
+                success: function(data) {
+                    $(".modal-edita-conteudo").html(data);
+                    $(".modal-edita-conteudo").modal('show');
+                }
+            });
+        }
+    </script>
+
+        {% endblock %}

@@ -21,7 +21,7 @@ class UsersAdmin(UserAdmin):
     model = Users
 
     # Defina quais campos do modelo serão exibidos na lista de usuários na interface de administração
-    list_display = ('first_name', 'last_name', 'email', 'fone', 'is_staff')
+    list_display = ('first_name', 'last_name', 'email', 'fone', 'is_staff', 'date_joined')
 
     # Defina os grupos de campos que serão exibidos na página de edição do usuário na interface de administração
     fieldsets = (

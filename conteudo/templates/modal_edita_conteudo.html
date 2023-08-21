@@ -59,7 +59,7 @@
                         
                             <div class="form-group">
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="{{ conteudo_form.ativo.id_for_label }}" name="{{ conteudo_form.ativo.name }}" {% if conteudo_form.ativo.value %}checked{% endif %}>
+                                    <input type="checkbox" class="custom-control-input" id="{{ conteudo_form.ativo.id_for_label }}" name="{{ conteudo_form.ativo.name }}" {% if conteudo_form.ativo.value %}checked{% else %}unchecked{% endif %}>
                                     <label class="custom-control-label" for="{{ conteudo_form.ativo.id_for_label }}">Ativo</label>
                                 </div>
                             </div>
@@ -82,8 +82,6 @@
         // Abrir o modal de "cadastro de categoria" quando o ícone for clicado
         $('#iconOpenCategoriaModal').on('click', function(e) {
             e.preventDefault();
-
-            console.log("Ícone de abertura do modal de categoria clicado!"); // Adicione esta linha
             
             // Fecha o modal de "cadastro de conteúdo"
             $('.modal-edita-conteudo').modal('hide');

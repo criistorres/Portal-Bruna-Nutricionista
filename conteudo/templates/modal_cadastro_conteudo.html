@@ -26,24 +26,24 @@
                             
                             <div class="form-group">
                                 <label for="{{ conteudo_form.titulo.id_for_label }}"><i class="fal fa-book"></i> Título:</label>
-                                <input type="text" id="{{ conteudo_form.titulo.id_for_label }}" name="{{ conteudo_form.titulo.name }}" class="form-control" value="{{ conteudo_form.titulo.value }}" required>
+                                <input type="text" id="{{ conteudo_form.titulo.id_for_label }}" name="{{ conteudo_form.titulo.name }}" class="form-control"  required>
                             </div>
                         
                             <div class="form-group">
                                 <label for="{{ conteudo_form.data_publicacao.id_for_label }}"><i class="fal fa-calendar-alt"></i> Data de Publicação:</label>
-                                <input type="date" id="{{ conteudo_form.data_publicacao.id_for_label }}" name="{{ conteudo_form.data_publicacao.name }}" class="form-control" value="{{ conteudo_form.data_publicacao.value|date:'Y-m-d' }}" required>
+                                {{ conteudo_form.data_publicacao }}
                             </div>
                         
 
                             
                             <div class="form-group">
                                 <label for="{{ conteudo_form.link_video.id_for_label }}"><i class="fal fa-video"></i> Link do Vídeo:</label>
-                                <input type="url" id="{{ conteudo_form.link_video.id_for_label }}" name="{{ conteudo_form.link_video.name }}" class="form-control" value="{{ conteudo_form.link_video.value }}" required>
+                                <input type="url" id="{{ conteudo_form.link_video.id_for_label }}" name="{{ conteudo_form.link_video.name }}" class="form-control"  required>
                             </div>
                         
                             <div class="form-group">
                                 <label for="{{ conteudo_form.descricao.id_for_label }}"><i class="fal fa-info-circle"></i> Descrição:</label>
-                                <textarea id="{{ conteudo_form.descricao.id_for_label }}" name="{{ conteudo_form.descricao.name }}" class="form-control">{{ conteudo_form.descricao.value }}</textarea>
+                                <textarea id="{{ conteudo_form.descricao.id_for_label }}" name="{{ conteudo_form.descricao.name }}" class="form-control"></textarea>
                             </div>
                         
                             <div class="form-group">

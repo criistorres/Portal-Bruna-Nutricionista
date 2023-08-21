@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- BEGIN Page Content -->
+
+<main id="js-page-content" role="main" class="page-content">
+    <ol class="breadcrumb page-breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0);">Portal</a></li>
+        <li class="breadcrumb-item">Módulos</li>
+        <li class="breadcrumb-item">Lista Módulos</li>
+        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
+    </ol>
+    <div class="subheader">
+        <h1 class="subheader-title">
+            <i class='subheader-icon fal fa-globe'></i> Lista de Módulos
+            <span class="badge badge-danger">{{ categorias.count }}</span>
+        </h1>
+        <div class="subheader-block">
+            <!-- Você pode adicionar algum conteúdo adicional aqui se necessário -->
+        </div>
+    </div>
+    <div class="container mt-4">
+
+        <div class="mb-4 d-flex justify-content-between">
+            <div>
+                <button id="btnCadastrarCategoria" class="btn btn-primary">
+                    <i class="fa fa-plus"></i> Módulos
+                </button>
+                <!-- <button id="btnCadastrarCategoria" class="btn btn-primary">
+                    <i class="fa fa-plus"></i> Módulos
+                </button> -->
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-plus"></i> Conteudo
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" id="btnPublicarConteudo" href="">Cadastrar Conteudos</a>
+                        <a class="dropdown-item" href="{% url 'conteudo:conteudo_list' %}">Ver Todos os Conteudos</a>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#relacionamentosModal">
+                    <i class="fa fa-sitemap"></i> Ver Relacionamentos
+                </button>
+            </div>
+            <div>
+                <span>Categorias: {{ categorias.count }}</span>
+            </div>
+            {% include 'modal_relacionamentos_conteudo_categoria.html' %}
+        </div>
+    
+        <div class="table-responsive mt-3">
+            <table class="table table-bordered table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Ícone</th>
+                        <th>Ativo</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for categoria in categorias %}
+                        <tr>
+                            <td>{{ categoria.nome }}</td>
+                            <td>{{ categoria.icone.descricao }}</td>
+                            <td>
+                                {% if categoria.ativo %}
+                                    <span class="badge badge-success">Ativo</span>
+                                {% else %}
+                                    <span class="badge badge-danger">Inativo</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <!-- <a href="#" data-pk="{{ categoria.pk }}" class="btn btn-sm btn-primary edit-categoria-btn"><i class="fa fa-edit"></i></a> -->
+                                <a href="{% url 'conteudo:editar_categoria' categoria.pk %}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                                <a href="{% url 'conteudo:delete_categoria' categoria.pk %}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        // Espera até que o documento HTML esteja totalmente carregado
+        $(document).ready(function() {
+            // Define um evento de clique para o botão com ID "btnPublicarConteudo"
+            $('#btnPublicarConteudo').on('click', function(e) {
+                // Impede o comportamento padrão do clique (recarregar a página, por exemplo)
+                e.preventDefault();
+                // Chama a função para mostrar a janela modal de publicação de conteúdo
+                showPublishContentModal();
+            });
+    
+            // Função para exibir a janela modal de publicação de conteúdo
+            function showPublishContentModal() {
+                // Faz uma solicitação AJAX para obter o conteúdo HTML da página de cadastro de conteúdo
+                $.ajax({
+                    // URL para a página de cadastro de conteúdo usando a sintaxe do Django
+                    url: "{% url 'conteudo:cadastrar_conteudo' %}",
+                    // Tipo de solicitação: GET
+                    type: 'get',
+                    // Espera que a resposta seja em formato HTML
+                    dataType: 'html',
+                    // Função a ser executada quando a solicitação for bem-sucedida
+                    success: function(data) {
+                        // Insere o conteúdo HTML recebido na classe da janela modal
+                        $(".modal-cadastra-conteudo").html(data);
+                        // Mostra a janela modal ao usuário
+                        $(".modal-cadastra-conteudo").modal('show');
+                    }
+                });
+            }
+        });
+    </script>
+    <!-- Chamada de Modal Cadstrar Categoria -->
+<script>
+    $(document).ready(function() {
+        $('#linkCadastrarCategoria').on('click', function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: "{% url 'conteudo:cadastrar_categoria' %}",
+                type: 'get',
+                dataType: 'html',
+                success: function(data) {
+                    $(".modal-cadastra-categoria").html(data);
+                    $(".modal-cadastra-categoria").modal('show');
+                }
+            });
+        });
+    });
+</script>
+<script>
+    // Espera até que o documento HTML esteja totalmente carregado
+    $(document).ready(function() {
+        // Define um evento de clique para o botão com ID "btnPublicarConteudo"
+        $('#btnCadastrarCategoria').on('click', function(e) {
+            // Impede o comportamento padrão do clique (recarregar a página, por exemplo)
+            e.preventDefault();
+            // Chama a função para mostrar a janela modal de publicação de conteúdo
+            showPublishContentModal();
+        });
+
+        // Função para exibir a janela modal de publicação de conteúdo
+        function showPublishContentModal() {
+            // Faz uma solicitação AJAX para obter o conteúdo HTML da página de cadastro de conteúdo
+            $.ajax({
+                // URL para a página de cadastro de conteúdo usando a sintaxe do Django
+                url: "{% url 'conteudo:cadastrar_categoria' %}",
+                // Tipo de solicitação: GET
+                type: 'get',
+                // Espera que a resposta seja em formato HTML
+                dataType: 'html',
+                // Função a ser executada quando a solicitação for bem-sucedida
+                success: function(data) {
+                    // Insere o conteúdo HTML recebido na classe da janela modal
+                    $(".modal-cadastra-categoria").html(data);
+                    // Mostra a janela modal ao usuário
+                    $(".modal-cadastra-categoria").modal('show');
+                }
+            });
+        }
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        // Use o evento "on" para detectar cliques em qualquer botão com a classe "edit-conteudo-btn"
+        $(document).on('click', '.edit-categoria-btn', function(e) {
+            e.preventDefault();
+            
+            // Recupere o valor de "data-pk" do botão clicado para obter o pk do conteúdo
+            var pk = $(this).data('pk');
+            showPublishContentModal(pk);
+        });
+    });
+
+    function showPublishContentModal(pk) {
+        var url = "{% url 'conteudo:editar_categoria' pk=0 %}".replace('0', pk);
+        $.ajax({
+            url: url,
+            type: 'get',
+            dataType: 'html',
+            success: function(data) {
+                $(".modal-edita-categoria").html(data);
+                $(".modal-edita-categoria").modal('show');
+            }
+        });
+    }
+</script>
+{% endblock %}

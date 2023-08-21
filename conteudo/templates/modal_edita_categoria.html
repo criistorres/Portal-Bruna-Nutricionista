@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<main id="js-page-content" role="main" class="page-content">
+    <ol class="breadcrumb page-breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0);">Portal</a></li>
+        <li class="breadcrumb-item">Editar</li>
+        <li class="breadcrumb-item">Categoria</li>
+        <li class="breadcrumb-item">{{ categoria.nome }}</li>
+        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span
+                class="js-get-date"></span></li>
+    </ol>
+    <div class="subheader">
+        <h1 class="subheader-title">
+            <i class='subheader-icon fal fa-folder-open'></i> Editar Categoria: {{ categoria.nome }}
+        </h1>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="custom-control custom-checkbox">
+                {{ categoria_form.ativo|as_crispy_field }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="{{ categoria_form.nome.id_for_label }}"><i class="fal fa-book"></i> Nome:</label>
+            <input type="text" id="{{ categoria_form.nome.id_for_label }}" name="{{ categoria_form.nome.name }}" class="form-control" value="{{ categoria_form.nome.value }}" required>
+        </div>
+    
+        <div class="form-group">
+            <label for="{{ categoria_form.icone.id_for_label }}"><i class="fal fa-tags"></i> Icone:</label>
+            <select id="{{ categoria_form.icone.id_for_label }}" name="{{ categoria_form.icone.name }}" class="form-control">
+                {% for icone in icones %}
+                    <option value="{{ icone.id }}" {% if categoria_form.icone.value == icone.id %}selected{% endif %}>{{ icone.descricao }}</option>
+                {% endfor %}
+            </select>
+            
+        </div>
+    
+
+        
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <a href="{% url 'conteudo:categoria_list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+{% endblock %}

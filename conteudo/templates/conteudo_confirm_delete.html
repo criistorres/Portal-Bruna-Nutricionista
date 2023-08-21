@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main id="js-page-content" role="main" class="page-content">
+    <ol class="breadcrumb page-breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0);">Portal</a></li>
+        <li class="breadcrumb-item">Deletar</li>
+        <li class="breadcrumb-item">Conteúdo</li>
+        <li class="breadcrumb-item">{{ conteudo.titulo }}</li>
+        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span
+                class="js-get-date"></span></li>
+    </ol>
+    <div class="subheader">
+        <h1 class="subheader-title">
+            <i class='subheader-icon fal fa-globe'></i> {{ titulo }}
+        </h1>
+    </div>
+    <h2>{{ texto_alerta }}</h2>
+    <p><strong>Título:</strong> {{ conteudo.titulo }}</p>
+    <p><strong>Data de Publicação:</strong> {{ conteudo.data_publicacao }}</p>
+    <p><strong>Categoria:</strong> {{ conteudo.categoria.nome }}</p>
+    <p><strong>Link do Vídeo:</strong> <a href="{{ conteudo.link_video }}" target="_blank">Visualizar Vídeo</a></p>
+    <p><strong>Descrição:</strong> {{ conteudo.descricao }}</p>
+    <p>Você tem certeza que deseja deletar este conteúdo?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Deletar</button>
+        <a href="{% url 'conteudo:conteudo_list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+{% endblock %}

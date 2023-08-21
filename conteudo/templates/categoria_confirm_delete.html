@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main id="js-page-content" role="main" class="page-content">
+    <ol class="breadcrumb page-breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0);">Portal</a></li>
+        <li class="breadcrumb-item">Deletar</li>
+        <li class="breadcrumb-item">Categoria</li>
+        <li class="breadcrumb-item">{{ conteudo.titulo }}</li>
+        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span
+                class="js-get-date"></span></li>
+    </ol>
+    <div class="subheader">
+        <h1 class="subheader-title">
+            <i class='subheader-icon fal fa-globe'></i> {{ titulo }}
+        </h1>
+    </div>
+    <h2>{{ texto_alerta }}</h2>
+    <p><strong>Nome:</strong> {{ categoria.nome }}</p>
+    <p><strong>Ícone:</strong> {{ categoria.icone.descricao }}</p>
+    <p>Você tem certeza que deseja deletar este módulo?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Deletar</button>
+        <a href="{% url 'conteudo:categoria_list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+{% endblock %}

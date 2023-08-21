@@ -3,9 +3,16 @@ from .models import Conteudo, Categoria, Comentario, Resposta, Icone, Notificaca
 
 from crispy_forms.helper import FormHelper  # Importando o FormHelper do Crispy Forms
 from crispy_forms.layout import Submit  # Importando o layout Submit do Crispy Forms
+from django.utils import timezone
 
 
 class ConteudoForm(forms.ModelForm):
+
+    data_publicacao = forms.DateField(
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+        initial=timezone.now().date() # Define o valor padrão como a data atual
+    )
+
     class Meta:
         model = Conteudo  # Especificando o modelo Conteudo para o formulário
         fields = ['titulo', 'data_publicacao', 'link_video', 'descricao', 'categoria', 'ativo']  # Campos do modelo que serão exibidos no formulário
