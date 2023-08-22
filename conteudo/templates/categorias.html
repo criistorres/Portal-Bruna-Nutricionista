@@ -55,11 +55,12 @@
                         <th>Nome</th>
                         <th>Ícone</th>
                         <th>Ativo</th>
+                        <th>Posição</th> <!-- Coluna adicional para exibir a posição -->
                         <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-
+                
                     {% for categoria in categorias %}
                         <tr>
                             <td>{{ categoria.nome }}</td>
@@ -71,6 +72,9 @@
                                 {% else %}
                                     <span class="badge badge-danger">Inativo</span>
                                 {% endif %}
+                            </td>
+                            <td>
+                                <span class="badge badge-info">{{ categoria.ordem }}</span> <!-- Badge para representar a posição da categoria -->
                             </td>
                             <td>
                                 <!-- <a href="#" data-pk="{{ categoria.pk }}" class="btn btn-sm btn-primary edit-categoria-btn"><i class="fa fa-edit"></i></a> -->

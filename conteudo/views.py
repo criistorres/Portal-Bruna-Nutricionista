@@ -88,6 +88,10 @@ class CategoriaListView(UserPassesTestMixin, ListView):
     model = Categoria
     template_name = 'categorias.html'
     context_object_name = 'categorias'
+    
+    def get_queryset(self):
+        # Ordena as categorias pelo campo 'ordem' em ordem ascendente
+        return Categoria.objects.filter(ativo=True).order_by('ordem')
 
     def test_func(self):
         return self.request.user.is_staff

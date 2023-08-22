@@ -28,7 +28,7 @@ class ConteudoForm(forms.ModelForm):
 class CategoriaForm(forms.ModelForm):
     class Meta:
         model = Categoria
-        fields = ['ativo','nome','icone']
+        fields = ['ativo','nome','icone','ordem']
 
     def __init__(self, *args, **kwargs):
         super(CategoriaForm, self).__init__(*args, **kwargs)

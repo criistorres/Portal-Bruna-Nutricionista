@@ -66,6 +66,7 @@ class Categoria(models.Model):
     nome = models.CharField(max_length=100)
     icone = models.ForeignKey(Icone, on_delete=models.CASCADE)
     ativo = models.BooleanField(default=True)
+    ordem = models.PositiveIntegerField(default=0, help_text='Defina a ordem das categorias na sidebar')
 
     def __str__(self):
         return self.nome

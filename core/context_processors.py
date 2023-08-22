@@ -3,11 +3,13 @@ from conteudo.models import Categoria, Notificacao, Conteudo, Icone
 from conteudo.forms import CategoriaForm
 from usuarios.models import Genero
 from usuarios.forms import UsersChangeForm, ProfileForm
-from django.db.models import Prefetch
+from django.db.models import Prefetch, Count
 
 def categorias_sidebar(request):
-    # Query para buscar as categorias ativas e fazer o prefetch dos conteúdos ativos relacionados
-    categorias = Categoria.objects.filter(ativo=True).prefetch_related(
+    # Query para buscar as categorias ativas
+    # Ordena as categorias pelo campo ordem em ordem ascendente
+    # Faz o prefetch dos conteúdos ativos relacionados
+    categorias = Categoria.objects.filter(ativo=True).order_by('ordem').prefetch_related(
         Prefetch('conteudo_set', queryset=Conteudo.objects.filter(ativo=True))
     )
 
