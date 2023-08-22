@@ -132,7 +132,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                     {% endfor %}
                 </div>
                 {% endif %}
-                <form action="{% url 'login' %}" method="POST">
+                <form action="{% url 'usuarios:login' %}" method="POST">
                     {% csrf_token %}
                     <div class="form-group">
                         <label class="form-label" for="username">Username</label>
@@ -157,7 +157,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                     <button type="submit" class="btn btn-default float-right">Logar</button>
                 </form>
                 <div class="blankpage-footer text-center">
-                    <a href="{% url 'password_reset' %}"><strong>Recuperar Senha</strong></a> | <a href="{% url 'cadastro' %}"><strong>Se cadastrar</strong></a>
+                    <a href="{% url 'usuarios:password_reset' %}"><strong>Recuperar Senha</strong></a> | <a href="{% url 'usuarios:cadastro' %}"><strong>Se cadastrar</strong></a>
                 </div>
             </div>
         </div>

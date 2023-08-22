@@ -59,10 +59,12 @@
                     </tr>
                 </thead>
                 <tbody>
+
                     {% for categoria in categorias %}
                         <tr>
                             <td>{{ categoria.nome }}</td>
-                            <td>{{ categoria.icone.descricao }}</td>
+                            
+                            <td><i class="fas {{ categoria.icone.icone_css_class }}"></i> {{ categoria.icone.descricao }}</td>
                             <td>
                                 {% if categoria.ativo %}
                                     <span class="badge badge-success">Ativo</span>

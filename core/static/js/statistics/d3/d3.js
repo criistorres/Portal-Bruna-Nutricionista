@@ -5591,7 +5591,7 @@ function contours() {
     };
   }
 
-  // Marching squares with isolines stitched into rings.
+  // Marçoing squares with isolines stitched into rings.
   // Based on https://github.com/topojson/topojson-client/blob/v3.0.0/src/stitch.js
   function isorings(values, value, callback) {
     var fragmentByStart = new Array,
@@ -13913,7 +13913,7 @@ defaultLocale$1({
   periods: ["AM", "PM"],
   days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
   shortDays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-  months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+  months: ["Janeiro", "Fevereiro", "Março", "Abril", "May", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
   shortMonths: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 });
 

@@ -8,6 +8,7 @@ from django.utils import timezone
 
 class ConteudoForm(forms.ModelForm):
 
+    ativo = forms.BooleanField(required=False) # Pode ser utilizado NullBooleanField também
     data_publicacao = forms.DateField(
         widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
         initial=timezone.now().date() # Define o valor padrão como a data atual

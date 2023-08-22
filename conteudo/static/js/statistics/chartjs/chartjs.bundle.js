@@ -15612,7 +15612,7 @@ var moment = createCommonjsModule(function (module, exports) {
     // LOCALES
 
     var MONTHS_IN_FORMAT = /D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/;
-    var defaultLocaleMonths = 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_');
+    var defaultLocaleMonths = 'Janeiro_Fevereiro_Março_Abril_May_Junho_Julho_Agosto_Setembro_Outubro_Novembro_Dezembro'.split('_');
     function localeMonths (m, format) {
         if (!m) {
             return isArray(this._months) ? this._months :
@@ -15864,7 +15864,7 @@ var moment = createCommonjsModule(function (module, exports) {
 
     // start-of-first-week - start-of-year
     function firstWeekOffset(year, dow, doy) {
-        var // first-week day -- which january is always in the first week (4 for iso, 1 for other)
+        var // first-week day -- which Janeiro is always in the first week (4 for iso, 1 for other)
             fwd = 7 + dow - doy,
             // first-week day local weekday -- which local weekday is fwd
             fwdlw = (7 + createUTCDate(year, 0, fwd).getUTCDay() - dow) % 7;

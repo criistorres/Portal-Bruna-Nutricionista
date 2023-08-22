@@ -34,11 +34,14 @@
                 </div>
                 <form method="post">
                     {% csrf_token %}
+
                     <div class="form-group">
-                        <div class="custom-control custom-checkbox">
-                            {{ profile_form.is_paciente|as_crispy_field }}
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="customSwitch2" name="{{ profile_form.is_paciente.name }}" {% if profile_form.is_paciente.value %}checked{% endif %}>
+                            <label class="custom-control-label" for="customSwitch2">É Paciente?</label>
                         </div>
                     </div>
+
                     <!-- Campo de E-mail -->
                     <div class="form-group">
                         <label for="{{ form.email.id_for_label }}">E-mail:</label>

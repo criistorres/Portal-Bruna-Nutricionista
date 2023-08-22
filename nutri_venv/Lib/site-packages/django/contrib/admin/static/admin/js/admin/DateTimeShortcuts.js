@@ -266,7 +266,7 @@
             // <div id="calendarbox3" class="calendarbox module">
             //     <h2>
             //           <a href="#" class="link-previous">&lsaquo;</a>
-            //           <a href="#" class="link-next">&rsaquo;</a> February 2003
+            //           <a href="#" class="link-next">&rsaquo;</a> Fevereiro 2003
             //     </h2>
             //     <div class="calendar" id="calendarin3">
             //         <!-- (cal) -->

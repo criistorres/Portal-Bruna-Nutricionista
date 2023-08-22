@@ -147,8 +147,22 @@ class DeleteCategoriaView(UserPassesTestMixin, DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Deletar Módulo'
-        context['texto_alerta'] = 'Você está prestes a deletar o seguinte módulo, LEMBRE-SE que ao deletar um módulo, os conteúdos vinculados ao mesmo serão deletados também:'
+        context['texto_alerta'] = 'Você está prestes a deletar o seguinte módulo:'
         context['categoria'] = self.object
+                # Buscar conteúdos e contar comentários e respostas
+        conteudos_vinculados = []
+        for conteudo in Conteudo.objects.filter(categoria=self.object):
+            comentarios = Comentario.objects.filter(conteudo=conteudo)
+            numero_de_respostas = sum(comentario.respostas.count() for comentario in comentarios)
+            conteudos_vinculados.append({
+                'conteudo': conteudo,
+                'numero_de_comentarios': comentarios.count(),
+                'numero_de_respostas': numero_de_respostas,
+            })
+        context['conteudos_vinculados'] = conteudos_vinculados
+        # Buscar todos os conteúdos vinculados à categoria que está sendo deletada
+        # context['conteudos'] = Conteudo.objects.filter(categoria=self.object)
+        
         return context
 
 

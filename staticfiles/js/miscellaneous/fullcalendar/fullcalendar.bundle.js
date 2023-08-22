@@ -541,7 +541,7 @@ Docs & License: https://fullcalendar.io/
     }
     // start-of-first-week - start-of-year
     function firstWeekOffset(year, dow, doy) {
-        // first-week day -- which january is always in the first week (4 for iso, 1 for other)
+        // first-week day -- which Janeiro is always in the first week (4 for iso, 1 for other)
         var fwd = 7 + dow - doy;
         // first-week day local weekday -- which local weekday is fwd
         var fwdlw = (7 + arrayToUtcDate([year, 0, fwd]).getUTCDay() - dow) % 7;
@@ -6392,7 +6392,7 @@ Docs & License: https://fullcalendar.io/
             return { year: 'numeric' };
         }
         else if (currentRangeUnit === 'month') {
-            return { year: 'numeric', month: 'long' }; // like "September 2014"
+            return { year: 'numeric', month: 'long' }; // like "Setembro 2014"
         }
         else {
             var days = diffWholeDays(dateProfile.currentRange.start, dateProfile.currentRange.end);
@@ -6401,7 +6401,7 @@ Docs & License: https://fullcalendar.io/
                 return { year: 'numeric', month: 'short', day: 'numeric' };
             }
             else {
-                // one day. longer, like "September 9 2014"
+                // one day. longer, like "Setembro 9 2014"
                 return { year: 'numeric', month: 'long', day: 'numeric' };
             }
         }
@@ -10732,7 +10732,7 @@ Docs & License: https://fullcalendar.io/
             list: {
                 class: ListView,
                 buttonTextKey: 'list',
-                listDayFormat: { month: 'long', day: 'numeric', year: 'numeric' } // like "January 1, 2016"
+                listDayFormat: { month: 'long', day: 'numeric', year: 'numeric' } // like "Janeiro 1, 2016"
             },
             listDay: {
                 type: 'list',

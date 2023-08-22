@@ -118,7 +118,7 @@ class LogoutView(View):
 
     def get(self, request):
         logout(request)
-        return redirect('login')
+        return redirect('usuarios:login')
 
 class CustomPasswordResetConfirmView(PasswordResetConfirmView):
     form_class = PasswordResetConfirmForm

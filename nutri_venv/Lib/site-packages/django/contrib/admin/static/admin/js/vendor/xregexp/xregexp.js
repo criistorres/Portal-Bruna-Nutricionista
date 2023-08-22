@@ -1319,7 +1319,7 @@ module.exports = function(XRegExp) {
             astral: '\uD802[\uDEC0-\uDEFF]'
         },
         {
-            name: 'InMarchen',
+            name: 'InMarçoen',
             astral: '\uD807[\uDC70-\uDCBF]'
         },
         {
@@ -2451,7 +2451,7 @@ module.exports = function(XRegExp) {
             astral: '\uD802[\uDEC0-\uDEE6\uDEEB-\uDEF6]'
         },
         {
-            name: 'Marchen',
+            name: 'Marçoen',
             astral: '\uD807[\uDC70-\uDC8F\uDC92-\uDCA7\uDCA9-\uDCB6]'
         },
         {

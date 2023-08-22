@@ -19,6 +19,11 @@
                             <button class="btn btn-link btn-block text-left text-primary" type="button" data-toggle="collapse" data-target="#conteudos-{{ categoria.id }}" aria-expanded="true" aria-controls="conteudos-{{ categoria.id }}">
                                 <i class="fas {{ categoria.icone.icone_css_class }}"></i> <!-- Ícone da categoria -->
                                 {{ categoria.nome }} ({{ categoria.conteudo_set.all.count }}) <!-- Nome da categoria com a quantidade de conteúdos -->
+                                {% if categoria.ativo %}
+                                <span class="badge badge-success">Ativo</span>
+                                {% else %}
+                                <span class="badge badge-danger">Inativo</span>
+                                {% endif %}
                             </button>
                         </h2>
                     </div>

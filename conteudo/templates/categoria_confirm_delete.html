@@ -7,22 +7,50 @@
         <li class="breadcrumb-item"><a href="javascript:void(0);">Portal</a></li>
         <li class="breadcrumb-item">Deletar</li>
         <li class="breadcrumb-item">Categoria</li>
-        <li class="breadcrumb-item">{{ conteudo.titulo }}</li>
-        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span
-                class="js-get-date"></span></li>
+        <li class="breadcrumb-item">{{ categoria.nome }}</li>
+        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
     </ol>
     <div class="subheader">
         <h1 class="subheader-title">
-            <i class='subheader-icon fal fa-globe'></i> {{ titulo }}
+            <i class='subheader-icon fal fa-trash-alt'></i> {{ titulo }}
         </h1>
     </div>
-    <h2>{{ texto_alerta }}</h2>
-    <p><strong>Nome:</strong> {{ categoria.nome }}</p>
-    <p><strong>Ícone:</strong> {{ categoria.icone.descricao }}</p>
-    <p>Você tem certeza que deseja deletar este módulo?</p>
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Deletar</button>
-        <a href="{% url 'conteudo:categoria_list' %}" class="btn btn-secondary">Cancelar</a>
-    </form>
+    <div class="card mb-g">
+        <div class="card-body">
+            <h2 class="text-danger">{{ texto_alerta }}</h2>
+            <p><strong>Nome:</strong> {{ categoria.nome }}</p>
+            <p><strong>Ícone:</strong> {{ categoria.icone.descricao }}</p>
+            <p><strong>Conteúdos Vinculados que serão deletados:</strong></p>
+            {% if conteudos_vinculados %}
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Data de Publicação</th>
+                            <th>Comentários</th>
+                            <th>Respostas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in conteudos_vinculados %}
+                            <tr>
+                                <td>{{ item.conteudo.titulo }}</td>
+                                <td>{{ item.conteudo.data_publicacao }}</td>
+                                <td>{{ item.numero_de_comentarios }}</td>
+                                <td>{{ item.numero_de_respostas }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="text-warning">Nenhum conteúdo vinculado a este módulo.</p>
+            {% endif %}
+            <p >Você tem certeza que deseja seguir?</p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Deletar</button>
+                <a href="{% url 'conteudo:categoria_list' %}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
 {% endblock %}

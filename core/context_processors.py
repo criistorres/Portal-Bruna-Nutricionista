@@ -3,9 +3,14 @@ from conteudo.models import Categoria, Notificacao, Conteudo, Icone
 from conteudo.forms import CategoriaForm
 from usuarios.models import Genero
 from usuarios.forms import UsersChangeForm, ProfileForm
+from django.db.models import Prefetch
 
 def categorias_sidebar(request):
-    categorias = Categoria.objects.filter(ativo=True).prefetch_related('conteudo_set').all()
+    # Query para buscar as categorias ativas e fazer o prefetch dos conteúdos ativos relacionados
+    categorias = Categoria.objects.filter(ativo=True).prefetch_related(
+        Prefetch('conteudo_set', queryset=Conteudo.objects.filter(ativo=True))
+    )
+
     return {'categorias_sidebar': categorias}
 
 def conteudos_ativos(request):

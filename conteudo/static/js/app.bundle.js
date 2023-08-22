@@ -1224,8 +1224,8 @@ var initApp = (function(app) {
 		
 		/* Add app date to js-get-date */
 		if ( myapp_config.appDateHook.length ) {
-			var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-				day = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+			var months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+				day = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'],
 				now = new Date(),
 				formatted = day[now.getDay()] + ', ' +  
 							months[now.getMonth()] + ' ' +  

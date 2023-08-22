@@ -19,11 +19,9 @@
     </div>
     <form method="post">
         {% csrf_token %}
-        <div class="form-group">
-            <div class="custom-control custom-checkbox">
-                {{ categoria_form.ativo|as_crispy_field }}
-            </div>
-        </div>
+
+
+        
         <div class="form-group">
             <label for="{{ categoria_form.nome.id_for_label }}"><i class="fal fa-book"></i> Nome:</label>
             <input type="text" id="{{ categoria_form.nome.id_for_label }}" name="{{ categoria_form.nome.name }}" class="form-control" value="{{ categoria_form.nome.value }}" required>
@@ -38,7 +36,12 @@
             </select>
             
         </div>
-    
+        <div class="form-group">
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="customSwitch2" name="{{ categoria_form.ativo.name }}" {% if categoria_form.ativo.value %}checked{% endif %}>
+                <label class="custom-control-label" for="customSwitch2">Ativo</label>
+            </div>
+        </div>
 
         
         <button type="submit" class="btn btn-primary">Salvar</button>

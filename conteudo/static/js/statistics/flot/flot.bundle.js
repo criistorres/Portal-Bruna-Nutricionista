@@ -14,7 +14,7 @@ Licensed under the MIT license.
  *
  * Inspiration from jQuery color animation plugin by John Resig.
  *
- * Released under the MIT license by Ole Laursen, October 2009.
+ * Released under the MIT license by Ole Laursen, Outubro 2009.
  *
  * Examples:
  *
@@ -3173,7 +3173,7 @@ Licensed under the MIT license.
  * 
  * Inspiration from jQuery color animation plugin by John Resig.
  *
- * Released under the MIT license by Ole Laursen, October 2009.
+ * Released under the MIT license by Ole Laursen, Outubro 2009.
  *
  * Examples:
  *
@@ -3699,7 +3699,7 @@ browser, but needs to redraw with canvas text when exporting as an image.
 Copyright (c) 2007-2014 IOLA and Ole Laursen.
 Licensed under the MIT license.
 
-Consider a dataset like [["February", 34], ["March", 20], ...]. This plugin
+Consider a dataset like [["Fevereiro", 34], ["Março", 20], ...]. This plugin
 allows you to plot such a dataset directly.
 
 To enable it, you must specify mode: "categories" on the axis with the textual
@@ -3713,7 +3713,7 @@ and list the categories there:
 
 	xaxis: {
 		mode: "categories",
-		categories: ["February", "March", "April"]
+		categories: ["Fevereiro", "Março", "Abril"]
 	}
 
 If you need to customize the distances between the categories, you can specify
@@ -3721,7 +3721,7 @@ If you need to customize the distances between the categories, you can specify
 
 	xaxis: {
 		mode: "categories",
-		categories: { "February": 1, "March": 3, "April": 4 }
+		categories: { "Fevereiro": 1, "Março": 3, "Abril": 4 }
 	}
 
 If you don't specify all categories, the remaining categories will be numbered
@@ -3729,7 +3729,7 @@ from the max value plus 1 (with a spacing of 1 between each).
 
 Internally, the plugin works by transforming the input data through an auto-
 generated mapping where the first category becomes 0, the second 1, etc.
-Hence, a point like ["February", 34] becomes [0, 34] internally in Flot (this
+Hence, a point like ["Fevereiro", 34] becomes [0, 34] internally in Flot (this
 is visible in hover and click events that return numbers rather than the
 category labels). The plugin also overrides the tick generator to spit out the
 categories as ticks instead of the values.
