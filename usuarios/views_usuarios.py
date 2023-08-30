@@ -90,7 +90,7 @@ class UserUpdateView(UserPassesTestMixin, UpdateView):
 
     def get_success_url(self):
         # Redireciona para a página de detalhes do conteúdo atualizado
-        return reverse('usuarios:usuarios_list')
+        return reverse('usuarios_list')
     def form_invalid(self, form):
         response = super().form_invalid(form)
 
@@ -107,7 +107,7 @@ class UserUpdateView(UserPassesTestMixin, UpdateView):
 class DeleteUserView(UserPassesTestMixin, DeleteView):
     model = Users
     template_name = 'usuario_confirm_delete.html'
-    success_url = reverse_lazy('usuarios:usuarios_list')
+    success_url = reverse_lazy('usuarios_list')
 
     def test_func(self):
         return self.request.user.is_staff

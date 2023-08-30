@@ -70,7 +70,6 @@
                         <th>Módulo</th>
                         <th>Data de Publicação</th>
                         <th>Link do Vídeo</th>
-                        <th>Módulo</th>
                         <th>Status</th>
                         <th>Ações</th>
                     </tr>
@@ -79,10 +78,9 @@
                     {% for conteudo in conteudos %}
                     <tr>
                         <td><a href="{% url 'conteudo:conteudo_detail' conteudo.id %}">{{ conteudo.titulo }}</a></td>
-                        <td><a href="{% url 'conteudo:conteudo_detail' conteudo.id %}">{{ conteudo.categoria.nome }}</a></td>
+                        <td><a href="">{{ conteudo.categoria.nome }}</a></td>
                         <td>{{ conteudo.data_publicacao }}</td>
                         <td><a href="{{ conteudo.link_video }}" target="_blank">Visualizar Vídeo</a></td>
-                        <td>{{ conteudo.categoria.nome }}</td>
                         <td>
                             {% if conteudo.ativo %}
                             <span class="badge badge-success">Ativo</span>

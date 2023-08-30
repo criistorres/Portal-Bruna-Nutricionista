@@ -4,7 +4,7 @@ from .views_usuarios import UserListView, UserUpdateView, DeleteUserView
 
 from django.contrib.auth import views as auth_views
 
-app_name = 'usuarios'
+# app_name = 'usuarios'
 
 urlpatterns = [
     path('cadastro/', CadastroView.as_view(), name='cadastro'),

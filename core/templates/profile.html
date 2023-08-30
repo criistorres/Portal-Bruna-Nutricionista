@@ -24,7 +24,7 @@
                             <h5>{{ user.get_full_name }}</h5>
                             <small class="text-muted">{{ user.email }}</small>
                         </div>
-                        <form id="userProfileForm" method="post" action="{% url 'usuarios:profile_update' %}" enctype="multipart/form-data">
+                        <form id="userProfileForm" method="post" action="{% url 'profile_update' %}" enctype="multipart/form-data">
                             {% csrf_token %}
                             
                             <div class="form-group">
