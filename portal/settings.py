@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 
 import os
+import socket
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,7 +29,15 @@ SECRET_KEY = 'django-insecure-*rj#tw3d3b=^ek3b%-w&f^uypiev7__#%5la^ce5j9v7_xairj
 DEBUG = True
 
 # ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = ['192.168.1.4', 'localhost', '127.0.0.1']
+# ALLOWED_HOSTS = ['192.168.1.4', 'localhost', '127.0.0.1']
+
+# Obtém o nome do host
+hostname = socket.gethostname()
+
+# Obtém o endereço IP
+IPAddr = socket.gethostbyname(hostname)
+
+ALLOWED_HOSTS = [IPAddr, 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -47,7 +56,7 @@ INSTALLED_APPS = [
     'usuarios',
     'conteudo',
     'crispy_forms',
-    'crispy_bootstrap5'
+    'crispy_bootstrap5',
 ]
 
 MIDDLEWARE = [

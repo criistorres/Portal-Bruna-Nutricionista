@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: brunanutricionista
+      MYSQL_USER: torrestech
+      MYSQL_PASSWORD: P4rmera1914!
+      MYSQL_ROOT_PASSWORD: P4rmera1914!
+    volumes:
+      - db_data:/var/lib/mysql
+
+  web:
+    build: .
+    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+volumes:
+  db_data:

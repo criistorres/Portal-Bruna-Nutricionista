@@ -6,14 +6,14 @@
 <main id="js-page-content" role="main" class="page-content">
     <ol class="breadcrumb page-breadcrumb">
         <li class="breadcrumb-item"><a href="javascript:void(0);">Portal</a></li>
-        <li class="breadcrumb-item">Conteudo</li>
-        <li class="breadcrumb-item">Lista Conteudos</li>
+        <li class="breadcrumb-item">Módulo</li>
+        <li class="breadcrumb-item">Lista Módulos</li>
         <li class="position-absolute pos-top pos-right d-none d-sm-block"><span
                 class="js-get-date"></span></li>
     </ol>
     <div class="subheader">
         <h1 class="subheader-title">
-            <i class='subheader-icon fal fa-globe'></i> Lista de Conteúdos
+            <i class='subheader-icon fal fa-globe'></i> Lista de Módulos
             <span class="badge badge-danger">{{ conteudos.count }}</span>
         </h1>
         <div class="subheader-block"></div>
@@ -23,18 +23,18 @@
         <div class="mb-4 d-flex justify-content-between">
             <div>
                 <button id="btnPublicarConteudo" class="btn btn-primary">
-                    <i class="fa fa-plus"></i> Conteúdo
+                    <i class="fa fa-plus"></i> Módulo
                 </button>
                 <!-- <button id="btnCadastrarCategoria" class="btn btn-primary">
                     <i class="fa fa-plus"></i> Módulos
                 </button> -->
                 <div class="btn-group">
                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-plus"></i> Módulos
+                        <i class="fa fa-plus"></i> Categoria
                     </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" id="btnCadastrarCategoria" href="">Cadastrar Módulo</a>
-                        <a class="dropdown-item" href="{% url 'conteudo:categoria_list' %}">Ver Todos os Módulos</a>
+                        <a class="dropdown-item" id="btnCadastrarCategoria" href="">Cadastrar Categoria</a>
+                        <a class="dropdown-item" href="{% url 'conteudo:categoria_list' %}">Ver Todas Categoria</a>
                     </div>
                 </div>
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#relacionamentosModal">
@@ -42,8 +42,8 @@
                 </button>
             </div>
             <div>
-                <span class="mr-3">Conteúdos: {{ conteudos.count }}</span>
-                <span>Módulos: {{ categorias.count }}</span>
+                <span class="mr-3">Módulos: {{ conteudos.count }}</span>
+                <span>Categorias: {{ categorias.count }}</span>
             </div>
         </div>
 

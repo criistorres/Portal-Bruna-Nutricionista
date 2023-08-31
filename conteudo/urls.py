@@ -18,5 +18,6 @@ urlpatterns = [
     path('categorias/', CategoriaListView.as_view(), name='categoria_list'),
     path('editar_categoria/<int:pk>/', CategoriaUpdateView.as_view(), name='editar_categoria'),
     path('delete/categoria/<int:pk>/', views.DeleteCategoriaView.as_view(), name='delete_categoria'),
+    path('search/', views.ConteudoSearchView.as_view(), name='conteudo_search'),
 
 ]

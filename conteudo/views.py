@@ -145,13 +145,13 @@ class DeleteCategoriaView(UserPassesTestMixin, DeleteView):
         return self.request.user.is_staff
 
     def handle_no_permission(self):
-        messages.error(self.request, 'Você não tem permissão para deletar módulos.')
+        messages.error(self.request, 'Você não tem permissão para deletar Categorias.')
         return redirect('index')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['titulo'] = 'Deletar Módulo'
-        context['texto_alerta'] = 'Você está prestes a deletar o seguinte módulo:'
+        context['titulo'] = 'Deletar Categoria'
+        context['texto_alerta'] = 'Você está prestes a deletar o seguinte Categoria:'
         context['categoria'] = self.object
                 # Buscar conteúdos e contar comentários e respostas
         conteudos_vinculados = []
@@ -328,4 +328,36 @@ class DeleteConteudoView(UserPassesTestMixin, DeleteView):
         context['titulo'] = 'Deletar Conteúdo'
         context['texto_alerta'] = 'Você está prestes a deletar o seguinte conteúdo:'
         context['conteudo'] = self.object
+        return context
+    
+class ConteudoSearchView(ListView):
+    model = Conteudo
+    template_name = 'conteudo_search_results.html'  # novo template para os resultados da pesquisa
+    context_object_name = 'conteudos'
+    paginate_by = 10
+
+    def get_queryset(self):
+        queryset = Conteudo.objects.all()
+        query = self.request.GET.get('q')
+
+        if query:
+            # Conteudo search
+            conteudo_search = Q(titulo__icontains=query) | Q(descricao__icontains=query) | Q(link_video__icontains=query)
+
+            # Comentario and Resposta search
+            comment_related_search = Q(comentarios__texto__icontains=query) | Q(comentarios__respostas__texto__icontains=query)
+            
+            # Categoria and Icone search
+            category_related_search = Q(categoria__nome__icontains=query) | Q(categoria__icone__descricao__icontains=query)
+
+            # Combine all searches
+            combined_search = conteudo_search | comment_related_search | category_related_search
+
+            queryset = queryset.filter(combined_search).distinct()
+
+        return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categorias'] = Categoria.objects.all().prefetch_related('conteudo_set')
         return context
