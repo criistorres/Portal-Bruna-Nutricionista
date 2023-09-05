@@ -4,6 +4,9 @@ from django.utils.timesince import timesince
 from django.urls import reverse
 from usuarios.models import Users
 
+import os
+from PIL import Image
+
 class Notificacao(models.Model):
     """
     Modelo que representa uma notificação gerada quando alguém responde a um comentário.
@@ -52,6 +55,12 @@ class Icone(models.Model):
 
     def __str__(self):
         return self.descricao
+    
+
+
+def categoria_directory_path(instance, filename):
+        # O arquivo será salvo no diretório: media/categorias/categoria_<id>/<filename>
+        return os.path.join('categorias', f'categoria_{instance.id}', filename)
 
 
 class Categoria(models.Model):
@@ -67,9 +76,34 @@ class Categoria(models.Model):
     icone = models.ForeignKey(Icone, on_delete=models.CASCADE)
     ativo = models.BooleanField(default=True)
     ordem = models.PositiveIntegerField(default=0, help_text='Defina a ordem das categorias na sidebar')
+    descricao = models.TextField(default='')
+    capa = models.ImageField('Capa', upload_to=categoria_directory_path, null=True, blank=True)
 
     def __str__(self):
         return self.nome
+
+    # def save(self, *args, **kwargs):
+    #     super().save(*args, **kwargs)  # Salva o objeto primeiro
+
+    #     if self.capa:  # Verifica se a capa foi carregada
+    #         img = Image.open(self.capa.path)  # Abre a imagem usando Pillow
+
+    #         # Corta a imagem para a relação de aspecto desejada (neste caso, 1:1)
+    #         width, height = img.size
+    #         new_dimension = min(width, height)
+    #         left = (width - new_dimension) / 2
+    #         top = (height - new_dimension) / 2
+    #         right = (width + new_dimension) / 2
+    #         bottom = (height + new_dimension) / 2
+    #         img = img.crop((left, top, right, bottom))
+
+    #         # Redimensiona a imagem para 300x300
+    #         output_size = (300, 300)
+    #         img = img.resize(output_size, Image.LANCZOS)
+
+    #         img.save(self.capa.path)  # Salva a imagem redimensionada
+    
+
 
 
 class Conteudo(models.Model):
@@ -104,6 +138,14 @@ class Conteudo(models.Model):
         """
         delta = timezone.now().date() - self.data_publicacao
         return delta.days < 7
+    
+    @property
+    def is_programado(self):
+        """
+        Verifica se o conteúdo foi publicado recentemente (nos últimos 7 dias).
+        """
+        delta = timezone.now().date() < self.data_publicacao
+        return delta
 
 
 class Comentario(models.Model):

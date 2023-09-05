@@ -5,7 +5,7 @@
     <div class="page-logo">
         <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative" data-toggle="modal" data-target="#modal-shortcut">
             <img src="{% static 'img/logo.png' %}" alt="SmartAdmin WebApp" aria-roledescription="logo">
-            <span class="page-logo-text mr-1">SmartAdmin Wlixopp</span>
+            <span class="page-logo-text mr-1">{{ info.nome }}</span>
             <span class="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span>
             <i class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i>
         </a>
@@ -62,17 +62,17 @@
         <div class="hidden-md-down">
             <a href="#" class="header-icon" data-toggle="modal" data-target=".js-modal-settings">
                 <i class="fal fa-cog"></i>
-            </a>
+        </a>
         </div> -->
 
-        <!-- app shortcuts -->
-        {% include 'myapps.html' %}
-        <!-- app message -->
+        <!-- app myapps -->
 
-        <a href="#" class="header-icon" data-toggle="modal" data-target=".js-modal-messenger">
+        <!-- fim myapps -->
+
+        <!-- <a href="#" class="header-icon" data-toggle="modal" data-target=".js-modal-messenger">
             <i class="fal fa-globe"></i>
             <span class="badge badge-icon">!</span>
-        </a>
+        </a> -->
         
         <!-- app notification, notificações -->
         {% include 'notificacoes.html' %}

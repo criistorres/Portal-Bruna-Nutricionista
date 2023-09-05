@@ -86,6 +86,7 @@ TEMPLATES = [
                 'core.context_processors.categorias_sidebar',
                 'core.context_processors.user_details',
                 'core.context_processors.conteudos_ativos',
+                'core.context_processors.info_context',
             ],
         },
     },

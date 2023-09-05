@@ -39,11 +39,11 @@
     }
 
     /* Adicionando estilos para os distintivos */
-    .novo-conteudo {
+.novo-conteudo {
   position: absolute;
   top: 10px;
-  right: 10px; /* Ajustado para posicionar no canto superior direito */
-  background-color: #cb1ca8;
+  left: 10px;
+  background-color: #ff9800;
   color: white;
   padding: 5px;
   font-weight: bold;
@@ -53,9 +53,9 @@
 
 .lancamento-futuro {
   position: absolute;
-  top: 10px; /* Ajustado para não sobrepor o outro distintivo */
-  right: 10px; /* Ajustado para posicionar no canto superior direito */
-  background-color: #35944b;
+  top: 10px;
+  left: 10px;
+  background-color: #03a9f4;
   color: white;
   padding: 5px;
   font-weight: bold;
@@ -85,8 +85,6 @@
     </div>
     <!-- Aqui começa a estrutura principal do conteúdo da página -->
     <!-- Aqui começa a estrutura principal do conteúdo da página -->
-    {% load tz %}
-
 <div class="col full-height">
     <div class="row">
         {% for categoria in categorias_all %}
@@ -95,7 +93,7 @@
             <!-- Card da Categoria -->
             <div class="card mb-3 category-card" data-toggle="modal" data-target="#modalCategoria{{ categoria.id }}">
                 <!-- Parte superior do cartão com a imagem e overlay -->
-                <div class="card-img-top" style="background-image: url('{{ categoria.capa.url }}');">
+                <div class="card-img-top" style="background-image: url('{% static 'img/backgrounds/bruna_background.jpg' %}');">
                     <div class="overlay">
                         <!-- Detalhes da categoria no overlay -->
                         <h5 class="card-title">{{ categoria.nome }}</h5>
@@ -115,23 +113,20 @@
                         <div class="modal-body">
                             <!-- Loop para listar os conteúdos da categoria -->
                             {% for conteudo in categoria.conteudo_set.all %}
-                            
                             <div class="card mb-2 position-relative"> <!-- Adicionado classe position-relative para posicionar corretamente os distintivos -->
                                 <div class="card-body">
                                     <h5 class="card-title">{{ conteudo.titulo }}</h5>
                                     <p class="card-text">{{ conteudo.descricao }}</p>
                                     
-                                    {% if conteudo.is_programado %}
+                                    {% if conteudo.data_publicacao > now %}
                                     <div class="lancamento-futuro">Lançamento em {{ conteudo.data_publicacao|date:"d/m/Y" }}</div>
                                     {% elif conteudo.is_recent %}
                                     <div class="novo-conteudo">Novo</div>
                                     {% endif %}
                                 </div>
-                                {% if not conteudo.is_programado %}
                                 <div class="card-footer">
                                     <a href="{% url 'conteudo:conteudo_detail' conteudo.id %}" class="btn btn-primary">Mais detalhes</a>
                                 </div>
-                                {% endif %}
                             </div>
                             {% endfor %}
                         </div>

@@ -123,7 +123,9 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
             }
 
         </script>
+
         <div class="blankpage-form-field">
+
             <div class="card p-4 border-top-left-radius-0 border-top-right-radius-0">
                 {% if messages %}
                 <div class="alert alert-primary text-dark" role="alert">
@@ -135,17 +137,17 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                 <form action="{% url 'login' %}" method="POST">
                     {% csrf_token %}
                     <div class="form-group">
-                        <label class="form-label" for="username">Username</label>
+                        <label class="form-label" for="username">E-mail</label>
                         <input type="email" id="email" name="email" class="form-control" placeholder="Digite seu email" >
                         <span class="help-block">
-                            Your unique username to app
+                            Seu e-mail cadastrado.
                         </span>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="password">Password</label>
+                        <label class="form-label" for="password">Senha</label>
                         <input type="password" id="password" name="password" class="form-control" placeholder="Digite sua senha">
                         <span class="help-block">
-                            Your password
+                            Sua senha.
                         </span>
                     </div>
                     <div class="form-group text-left">
@@ -154,21 +156,21 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                             <label class="custom-control-label" for="rememberme">Lembrar credenciais</label>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-default float-right">Logar</button>
+                    <button type="submit" class="btn btn-default float-right">Acessar</button>
                 </form>
                 <div class="blankpage-footer text-center">
-                    <a href="{% url 'password_reset' %}"><strong>Recuperar Senha</strong></a> | <a href="{% url 'cadastro' %}"><strong>Se cadastrar</strong></a>
+                    <a href="{% url 'password_reset' %}"><strong>Recuperar Senha</strong></a> | <a href="{% url 'cadastro' %}"><strong>Cadastre-se</strong></a>
                 </div>
             </div>
         </div>
         <div class="login-footer p-2">
             <div class="row">
                 <div class="col col-sm-12 text-center">
-                    <i><strong>System Message:</strong> You were logged out from 198.164.246.1 on Saturday, March, 2017 at 10.56AM</i>
+                    <i><strong>System Message:</strong> Estamos ainda em fase de criação e testes.</i>
                 </div>
             </div>
         </div>
-        <video poster="{% static 'img/backgrounds/bruna_background.jpg' %}" id="bgvid" width="1920" height="1080" playsinline autoplay muted loop>
+        <video poster="{% static 'img/backgrounds/bruna_background.jpg' %}" id="bgvid" width="1500" height="700" playsinline autoplay muted loop>
             <!--source src="{% static 'media/video/cc.webm' %}" type="video/webm"-->
             <!-- <source src="{% static 'media/video/passando_comida.mp4' %}" type="video/mp4"> -->
         </video>

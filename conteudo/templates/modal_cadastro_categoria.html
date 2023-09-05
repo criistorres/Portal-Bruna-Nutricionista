@@ -50,6 +50,18 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label for="{{ categoria_form.descricao.id_for_label }}"><i class="fal fa-align-left"></i> Descrição:</label>
+                                <textarea id="{{ categoria_form.descricao.id_for_label }}" name="{{ categoria_form.descricao.name }}" class="form-control" required></textarea>
+                                <!-- Campo de texto para inserir a descrição da categoria -->
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="{{ categoria_form.capa.id_for_label }}"><i class="fal fa-image"></i> Capa:</label>
+                                <input type="file" id="{{ categoria_form.capa.id_for_label }}" name="{{ categoria_form.capa.name }}" class="form-control" accept="image/*" required>
+                                <!-- Campo de upload de arquivo para inserir a capa da categoria -->
+                            </div>
                         
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>

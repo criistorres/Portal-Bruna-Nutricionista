@@ -1,8 +1,13 @@
 # core/context_processors.py
 from conteudo.models import Categoria, Notificacao, Conteudo, Icone
 from conteudo.forms import CategoriaForm
+
 from usuarios.models import Genero
 from usuarios.forms import UsersChangeForm, ProfileForm
+
+from core.models import infosApp
+from core.forms import infosAppForm
+
 from django.db.models import Prefetch, Count
 from django.utils import timezone
 
@@ -18,8 +23,14 @@ def categorias_sidebar(request):
     categorias = Categoria.objects.filter(ativo=True).order_by('ordem').prefetch_related(
         Prefetch('conteudo_set', queryset=queryset_conteudo)
     )
+    queryset_conteudo_all = Conteudo.objects.filter(ativo=True).order_by('-data_publicacao')
+    # Também faz o prefetch dos conteúdos ativos relacionados
+    categorias_all = Categoria.objects.filter(ativo=True).order_by('ordem').prefetch_related(
+        Prefetch('conteudo_set', queryset=queryset_conteudo_all)
+    )
     
-    return {'categorias_sidebar': categorias}
+    return {'categorias_sidebar': categorias,
+            'categorias_all': categorias_all}
 
 def conteudos_ativos(request):
     agora = timezone.now()
@@ -40,3 +51,13 @@ def user_details(request):
         context['categoria_form'] = CategoriaForm()
 
     return context
+
+def info_context(request):
+    try:
+        # Pegando o primeiro registro da tabela infosApp
+        info = infosApp.objects.first()
+    except infosApp.DoesNotExist:
+        info = None
+
+    # Retornando o contexto
+    return {'info': info}

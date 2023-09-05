@@ -3,10 +3,10 @@
     <div class="page-logo">
         <a href="#"
             class="page-logo-link press-scale-down d-flex align-items-center position-relative"
-            data-toggle="modal" data-target="#modal-shortcut">
+            data-toggle="modal" data-target="#">
             <img src="{% static 'img/logo.png' %}" alt="SmartAdmin WebApp"
                 aria-roledescription="logo" style="width: 70px; height: 70px;">
-            <span class="page-logo-text mr-1">Portal Bruna Nutri</span>
+            <span class="page-logo-text mr-1">{{ info.nome }}</span>
             <span
                 class="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span>
             <i
@@ -70,11 +70,11 @@
                 </a>
             </li>
             {% if request.user.is_superuser %}
-            <li class="nav-title">Painel Admin</li>
+            <li class="nav-title">Painel Admin {{ info.nome_reduzido }}</li>
             <li>
                 <a href="#" title="Category" data-filter-tags="category">
                     <i class="fal fa-user-circle"></i>
-                    <span class="nav-link-text" data-i18n="nav.category">Administração</span>
+                    <span class="nav-link-text" data-i18n="nav.category">Administração {{ info.nome_reduzido }}</span>
                 </a>
 
                 <ul>
@@ -84,7 +84,7 @@
                                 title="Sublevel Item"
                                 data-filter-tags="utilities menu child sublevel item">
                                 <span class="nav-link-text"
-                                    data-i18n="nav.utilities_menu_child_sublevel_item">Usuários</span>
+                                    data-i18n="nav.utilities_menu_child_sublevel_item">Usuários {{ info.nome_reduzido }}</span>
                             </a>
                         </li>
                         <li>
@@ -92,7 +92,7 @@
                                 title="Sublevel Item"
                                 data-filter-tags="utilities menu child sublevel item">
                                 <span class="nav-link-text"
-                                    data-i18n="nav.utilities_menu_child_sublevel_item">Módulos</span>
+                                    data-i18n="nav.utilities_menu_child_sublevel_item">Módulos {{ info.nome_reduzido }}</span>
                             </a>
                         </li>
 
@@ -101,7 +101,7 @@
                                 title="Sublevel Item"
                                 data-filter-tags="utilities menu child sublevel item">
                                 <span class="nav-link-text"
-                                    data-i18n="nav.utilities_menu_child_sublevel_item">Categorias</span>
+                                    data-i18n="nav.utilities_menu_child_sublevel_item">Categorias {{ info.nome_reduzido }}</span>
                             </a>
                         </li>
 

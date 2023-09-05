@@ -107,8 +107,9 @@ class LoginView(View):
         if user:
             # Se as credenciais são válidas, faz o login do usuário na sessão do Django
             login_django(request, user)
+            messages.add_message(request, messages.SUCCESS, 'Seja bem vindo (a) ao ZEN!', extra_tags='personalizado')
             # Redireciona para a página inicial (index.html) após o login bem-sucedido
-            return render(request, "index.html")
+            return redirect( "index")
         else:
             # Se as credenciais são inválidas, retorna uma resposta com a mensagem de erro
             messages.add_message(request, messages.ERROR, "Ops, email ou senha incorretos, tente novamente! 😞")
