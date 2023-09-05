@@ -122,7 +122,7 @@ class CategoriaUpdateView(LoginRequiredMixin, UpdateView):
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
-        form = CategoriaForm(request.POST, instance=self.object)
+        form = CategoriaForm(request.POST, request.FILES, instance=self.object)  
         if form.is_valid():
             form.save()
             # messages.success(request, 'Categoria atualizada com sucesso.')

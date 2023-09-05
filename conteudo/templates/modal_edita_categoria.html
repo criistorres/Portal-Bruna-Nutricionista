@@ -17,11 +17,9 @@
             <i class='subheader-icon fal fa-folder-open'></i> Editar Categoria: {{ categoria.nome }}
         </h1>
     </div>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data"> 
         {% csrf_token %}
 
-
-        
         <div class="form-group">
             <label for="{{ categoria_form.nome.id_for_label }}"><i class="fal fa-book"></i> Nome:</label>
             <input type="text" id="{{ categoria_form.nome.id_for_label }}" name="{{ categoria_form.nome.name }}" class="form-control" value="{{ categoria_form.nome.value }}" required>
@@ -63,7 +61,7 @@
         
         <div class="form-group">
             <label for="{{ categoria_form.capa.id_for_label }}"><i class="fal fa-image"></i> Capa:</label>
-            <input type="file" id="{{ categoria_form.capa.id_for_label }}" name="{{ categoria_form.capa.name }}" class="form-control" accept="image/*">
+            <input type="file" id="{{ categoria_form.capa.id_for_label }}" name="{{ categoria_form.capa.name }}" class="form-control" >
             <!-- Agora os usuários podem carregar uma nova imagem como a capa. Note que não especificamos um valor 'required' aqui, para permitir que os usuários mantenham a capa atual sem precisar carregar novamente. -->
             <!-- Se deseja mostrar a imagem atual, pode adicionar um <img> tag com o URL da imagem atual aqui -->
             <img src="{{ categoria.capa.url }}" alt="Capa atual" style="max-width: 100px; max-height: 100px;">
