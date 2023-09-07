@@ -98,6 +98,8 @@ WSGI_APPLICATION = 'portal.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
+
 """ Conexao Mysql """
 # DATABASES = {
 #     'default': {
@@ -109,6 +111,8 @@ WSGI_APPLICATION = 'portal.wsgi.application'
 #         'PORT': '3306',
 #     }
 # }
+
+
 """ Conexao Postgres """
 
 DATABASES = {
