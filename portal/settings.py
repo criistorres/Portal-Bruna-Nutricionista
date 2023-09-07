@@ -98,18 +98,29 @@ WSGI_APPLICATION = 'portal.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+""" Conexao Mysql """
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'brunanutricionista',
+#         'USER': 'torrestech',
+#         'PASSWORD': 'P4rmera1914!',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
+""" Conexao Postgres """
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'brunanutricionista',
-        'USER': 'torrestech',
-        'PASSWORD': 'P4rmera1914!',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'USER': 'postgres',
+        'PASSWORD': 'Camilly1',
+        'HOST': 'localhost',  # ou o endereço IP do seu banco de dados
+        'PORT': '5432',  # porta padrão do PostgreSQL
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
