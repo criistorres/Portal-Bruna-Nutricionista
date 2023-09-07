@@ -40,16 +40,16 @@
 
     /* Adicionando estilos para os distintivos */
     .novo-conteudo {
-  position: absolute;
-  top: 10px;
-  right: 10px; /* Ajustado para posicionar no canto superior direito */
-  background-color: #cb1ca8;
-  color: white;
-  padding: 5px;
-  font-weight: bold;
-  border-radius: 3px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
+    position: absolute;
+    top: 10px;
+    right: 10px; /* Ajustado para posicionar no canto superior direito */
+    background-color: #35944b;
+    color: white;
+    padding: 5px;
+    font-weight: bold;
+    border-radius: 3px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
 
 .lancamento-futuro {
   position: absolute;
@@ -96,12 +96,12 @@
             <div class="card mb-3 category-card" data-toggle="modal" data-target="#modalCategoria{{ categoria.id }}">
                 <!-- Parte superior do cartão com a imagem e overlay -->
                 <div class="card-img-top" style="background-image: url('{{ categoria.capa.url }}');">
-                    <div class="overlay">
+                    <!-- <div class="overlay"> -->
                         <!-- Detalhes da categoria no overlay -->
-                        <h5 class="card-title">{{ categoria.nome }}</h5>
-                        <p class="card-text">{{ categoria.descricao|truncatewords:30 }}</p>
-                        <p class="card-text">Quantidade de módulos: {{ categoria.conteudo_set.count }}</p>
-                    </div>
+                        <!-- <h5 class="card-title">{{ categoria.nome }}</h5> -->
+                        <!-- <p class="card-text">{{ categoria.descricao|truncatewords:30 }}</p> -->
+                        <!-- <p class="card-text">Quantidade de módulos: {{ categoria.conteudo_set.count }}</p> -->
+                    <!-- </div> -->
                 </div>
             </div>
             <!-- Modal com detalhes dos conteúdos da categoria -->
@@ -110,7 +110,8 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <!-- Título do modal -->
-                            <h5 class="modal-title" id="exampleModalLabel">{{ categoria.nome }}</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Categoria: {{ categoria.nome }}</h5>
+                            
                         </div>
                         <div class="modal-body">
                             <!-- Loop para listar os conteúdos da categoria -->
