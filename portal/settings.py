@@ -17,6 +17,7 @@ import socket
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+# print(BASE_DIR)
 
 
 # Quick-start development settings - unsuitable for production
@@ -144,13 +145,31 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+# STATIC_URL é a URL que o Django usará para referenciar arquivos estáticos em templates ou arquivos HTML. 
+# Ou seja, é o prefixo usado nas URLs dos arquivos estáticos.
 STATIC_URL = '/static/'
+
+# STATICFILES_DIRS é uma lista de diretórios onde o Django irá procurar arquivos estáticos adicionais 
+# além daqueles contidos em cada aplicativo. Neste caso, está configurado para incluir os arquivos estáticos 
+# presentes no diretório 'static' na raiz do seu projeto (determinado pela variável BASE_DIR).
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'core/static'),
+    BASE_DIR / "static",
 ]
+# print(STATICFILES_DIRS)
+
+# MEDIA_URL é a URL que o Django usará para referenciar arquivos de mídia (como imagens, vídeos, etc.) 
+# em templates ou arquivos HTML. Semelhante ao STATIC_URL, mas para arquivos de mídia.
 MEDIA_URL = '/media/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# STATIC_ROOT é o diretório onde o comando 'collectstatic' irá coletar todos os arquivos estáticos para 
+# servir em produção. É importante que este diretório seja diferente dos diretórios listados em 
+# STATICFILES_DIRS para evitar conflitos.
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
+
+# MEDIA_ROOT é o diretório onde os arquivos de mídia (enviados pelos usuários ou gerenciados pela aplicação) 
+# serão armazenados. É o local físico no servidor onde os arquivos de mídia estão armazenados e acessados.
+MEDIA_ROOT = BASE_DIR / 'media'
+
 
 #Registra o modelo de usuário, neste caso usamos um Custom login para logar com o email
 AUTH_USER_MODEL = 'usuarios.Users'

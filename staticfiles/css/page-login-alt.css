@@ -461,8 +461,7 @@ html body {
   @media screen and (max-device-width: 800px) {
     html body html {
       background: url("../img/clouds.png") #FFF no-repeat center center fixed; }
-    html body #bgvid {
-      display: none; 
-      background-size: cover; /* Faz a imagem de fundo cobrir toda a viewport */} }
-
+      html body #bgvid {
+        display: none; 
+        background-size: cover; /* Faz a imagem de fundo cobrir toda a viewport */} }
 /*# sourceMappingURL=page-login-alt.css.map */
