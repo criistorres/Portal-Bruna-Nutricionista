@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-*rj#tw3d3b=^ek3b%-w&f^uypiev7__#%5la^ce5j9v7_xairj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # ALLOWED_HOSTS = ['portalzen.eba-tr8s2iuq.us-west-2.elasticbeanstalk.com']
 # ALLOWED_HOSTS = ['192.168.1.4', 'localhost', '127.0.0.1']
@@ -58,6 +58,8 @@ INSTALLED_APPS = [
     'conteudo',
     'crispy_forms',
     'crispy_bootstrap5',
+
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -175,19 +177,20 @@ USE_TZ = False
 
 # STATIC_URL é a URL que o Django usará para referenciar arquivos estáticos em templates ou arquivos HTML. 
 # Ou seja, é o prefixo usado nas URLs dos arquivos estáticos.
-STATIC_URL = '/static/'
+# STATIC_URL = '/static/'
 
 # STATICFILES_DIRS é uma lista de diretórios onde o Django irá procurar arquivos estáticos adicionais 
 # além daqueles contidos em cada aplicativo. Neste caso, está configurado para incluir os arquivos estáticos 
 # presentes no diretório 'static' na raiz do seu projeto (determinado pela variável BASE_DIR).
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+# STATICFILES_DIRS = [
+#     BASE_DIR / "static",
+# ]
 # print(STATICFILES_DIRS)
 
 # MEDIA_URL é a URL que o Django usará para referenciar arquivos de mídia (como imagens, vídeos, etc.) 
 # em templates ou arquivos HTML. Semelhante ao STATIC_URL, mas para arquivos de mídia.
-MEDIA_URL = '/media/'
+# MEDIA_URL = '/media/'
+
 
 # STATIC_ROOT é o diretório onde o comando 'collectstatic' irá coletar todos os arquivos estáticos para 
 # servir em produção. É importante que este diretório seja diferente dos diretórios listados em 
@@ -220,3 +223,27 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'nutribrunasuporte@gmail.com'
 # EMAIL_HOST_PASSWORD = '@12marcos'
 EMAIL_HOST_PASSWORD = 'lycsjuwvitiyidpt'
+
+"""  Integração AWS - Imagens e arquivos estaticos  """
+
+AWS_ACCESS_KEY_ID = 'AKIA2P7BLYMG6ZQ2T5XM'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'torrestech-zen-bucket'
+AWS_S3_SIGNATURE_VERSION  = 's3v4'
+AWS_S3_REGION_NAME = 'us-east-2'
+AWS_S3_FILE_OVERWRITE = False
+
+# AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+# AWS_DEFAULT_ACL = 'public-read'
+AWS_DEFAULT_ACL = None
+AWS_S3_VERITY = True
+AWS_QUERYSTRING_AUTH = False  # Desativar a geração de URLs assinadas
+# Defina o back-end de armazenamento de arquivos do Django para usar o S3
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# Use a URL do seu bucket S3 como MEDIA_URL
+MEDIA_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+# Use a URL do seu bucket S3 como STATIC_URL
+STATIC_URL = 'https://%s.s3.us-east-2.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+

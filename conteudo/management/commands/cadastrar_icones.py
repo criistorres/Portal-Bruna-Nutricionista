@@ -8,20 +8,20 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         icone_choices = [
-                ('fa-heart', 'Coração'),
-                ('fa-apple-alt', 'Maçã'),
-                ('fa-dumbbell', 'Haltere'),
-                ('fa-stethoscope', 'Estetoscópio'),
-                ('fa-hamburger', 'Hambúrguer'),
-                ('fa-leaf', 'Folha'),
-                ('fa-running', 'Corrida'),
-                ('fa-bicycle', 'Bicicleta'),
-                ('fa-tooth', 'Dente'),
-                ('fa-pills', 'Comprimidos'),
-                ('fa-water', 'Água'),
-                ('fa-weight', 'Peso'),
-                ('fa-carrot', 'Cenoura'),
-                ('fa-bed', 'Cama'),
+                ('fas fa-heart', 'Coração'),
+                ('fas fa-apple-alt', 'Maçã'),
+                ('fas fa-dumbbell', 'Haltere'),
+                ('fas fa-play', 'Play'),
+                ('fas fa-hamburger', 'Hambúrguer'),
+                ('fas fa-leaf', 'Folha'),
+                ('fas fa-running', 'Corrida'),
+                ('fas fa-bicycle', 'Bicicleta'),
+                ('fas fa-tooth', 'Dente'),
+                ('fas fa-pills', 'Comprimidos'),
+                ('fas fa-water', 'Água'),
+                ('fas fa-weight', 'Peso'),
+                ('fas fa-carrot', 'Cenoura'),
+                ('fas fa-bed', 'Cama'),
             # ... outras opções ...
         ]
 

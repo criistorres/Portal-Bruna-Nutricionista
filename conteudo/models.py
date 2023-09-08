@@ -59,8 +59,9 @@ class Icone(models.Model):
 
 
 def categoria_directory_path(instance, filename):
-        # O arquivo será salvo no diretório: media/categorias/categoria_<id>/<filename>
-        return os.path.join('categorias', f'categoria_{instance.id}', filename)
+    # O arquivo será salvo no diretório: media/categorias/categoria_<id>/<filename>
+    return 'categorias/categoria_{0}/{1}'.format(instance.id, filename)
+
 
 
 class Categoria(models.Model):

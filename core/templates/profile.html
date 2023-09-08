@@ -44,7 +44,7 @@
 
                             <div class="form-group">
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="{{ profile_form.is_paciente.id_for_label }}" readonly name="{{ profile_form.is_paciente.name }}" {% if profile_form.is_paciente.value %}checked{% endif %}>
+                                    <input type="checkbox" class="custom-control-input" id="{{ profile_form.is_paciente.id_for_label }}" name="{{ profile_form.is_paciente.name }}" {% if profile_form.is_paciente.value %}checked{% endif %} disabled  >
                                     <label class="custom-control-label" for="{{ profile_form.is_paciente.id_for_label }}">É paciente?</label>
                                 </div>
                             </div>
