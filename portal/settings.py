@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-*rj#tw3d3b=^ek3b%-w&f^uypiev7__#%5la^ce5j9v7_xairj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['portalzen.eba-tr8s2iuq.us-west-2.elasticbeanstalk.com']
 # ALLOWED_HOSTS = ['192.168.1.4', 'localhost', '127.0.0.1']
 
 # Obtém o nome do host
@@ -113,16 +113,29 @@ WSGI_APPLICATION = 'portal.wsgi.application'
 # }
 
 
-""" Conexao Postgres """
+""" Conexao Postgres Localmente """
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'brunanutricionista',
+#         'USER': 'postgres',
+#         'PASSWORD': 'Camilly1',
+#         'HOST': 'localhost',  # ou o endereço IP do seu banco de dados
+#         'PORT': '5432',  # porta padrão do PostgreSQL
+#     }
+# }
+
+""" Conexao Postgres AWS """
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'brunanutricionista',
-        'USER': 'postgres',
-        'PASSWORD': 'Camilly1',
-        'HOST': 'localhost',  # ou o endereço IP do seu banco de dados
-        'PORT': '5432',  # porta padrão do PostgreSQL
+        'NAME': 'postgres',
+        'USER': 'torrestech',
+        'PASSWORD': 'P4rmera1914!',
+        'HOST': 'brunanutricionista.ciuehdcelzgt.us-east-2.rds.amazonaws.com',
+        'PORT': '5432'
     }
 }
 
