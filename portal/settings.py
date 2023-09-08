@@ -29,16 +29,18 @@ SECRET_KEY = 'django-insecure-*rj#tw3d3b=^ek3b%-w&f^uypiev7__#%5la^ce5j9v7_xairj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-# ALLOWED_HOSTS = ['portalzen.eba-tr8s2iuq.us-west-2.elasticbeanstalk.com']
-# ALLOWED_HOSTS = ['192.168.1.4', 'localhost', '127.0.0.1']
-
 # Obtém o nome do host
 hostname = socket.gethostname()
 
 # Obtém o endereço IP
 IPAddr = socket.gethostbyname(hostname)
 
+# ALLOWED_HOSTS = ['portalzen-dev.sa-east-1.elasticbeanstalk.com']
 ALLOWED_HOSTS = [IPAddr, 'localhost', '127.0.0.1']
+
+
+
+
 
 
 # Application definition
