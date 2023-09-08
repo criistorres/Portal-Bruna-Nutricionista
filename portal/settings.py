@@ -38,6 +38,8 @@ IPAddr = socket.gethostbyname(hostname)
 # ALLOWED_HOSTS = ['portalzen-dev.sa-east-1.elasticbeanstalk.com']
 ALLOWED_HOSTS = [IPAddr, 'localhost', '127.0.0.1']
 
+# Define o caminho para o seu template de email personalizado
+PASSWORD_RESET_EMAIL_TEMPLATE = 'registration/password_reset_email.html'
 
 
 
@@ -135,10 +137,10 @@ WSGI_APPLICATION = 'portal.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
+        'NAME': 'zendb',
         'USER': 'torrestech',
         'PASSWORD': 'P4rmera1914!',
-        'HOST': 'brunanutricionista.ciuehdcelzgt.us-east-2.rds.amazonaws.com',
+        'HOST': 'zendb.czcu8thpibby.sa-east-1.rds.amazonaws.com',
         'PORT': '5432'
     }
 }
