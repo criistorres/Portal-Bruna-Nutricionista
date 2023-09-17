@@ -2,14 +2,25 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"type": "totvs_language_debug",
+			"name": "Python: Django",
+			"type": "python",
 			"request": "launch",
-			"name": "TOTVS Language Debug",
-			"program": "${command:AskForProgramName}",
-			"cwb": "${workspaceFolder}",
-			"smartclientBin": "../totvs/bin/smartclient/smartclient.exe",
-			"isMultiSession": true,
-			"enableTableSync": true
+			"program": "${workspaceFolder}/manage.py",
+			"args": [
+				"runserver",
+			],
+			"django": true
+		 },
+		{
+			"name": "PortalZen",
+			"python": "/Users/cristian.torres/GitHub/Portal-Bruna-Nutricionista/nutri_venv/Scripts/python.exe",
+			"type": "python",
+			"request": "launch",
+			"program": "/Users/cristian.torres/GitHub/Portal-Bruna-Nutricionista/manage.py",
+			// "console": "internalConsole",
+			"args": ["runserver"],
+		   "django": true,
+		   "justMyCode": true,
 		}
 	],
 	"lastPrograms": [],

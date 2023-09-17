@@ -13,29 +13,35 @@ from django.utils import timezone
 
 def categorias_sidebar(request):
     # Obtém a data e hora atual
-    agora = timezone.now()
-    
-    # Query para buscar os conteúdos ativos e com data_publicacao <= agora
-    queryset_conteudo = Conteudo.objects.filter(ativo=True, data_publicacao__lte=agora).order_by('-data_publicacao')
-    
-    # Query para buscar as categorias ativas e ordená-las pelo campo 'ordem'
-    # Também faz o prefetch dos conteúdos ativos relacionados
-    categorias = Categoria.objects.filter(ativo=True).order_by('ordem').prefetch_related(
-        Prefetch('conteudo_set', queryset=queryset_conteudo)
-    )
-    queryset_conteudo_all = Conteudo.objects.filter(ativo=True).order_by('-data_publicacao')
-    # Também faz o prefetch dos conteúdos ativos relacionados
-    categorias_all = Categoria.objects.filter(ativo=True).order_by('ordem').prefetch_related(
-        Prefetch('conteudo_set', queryset=queryset_conteudo_all)
-    )
-    
+    if request.user.is_authenticated:
+        agora = timezone.now()
+        
+        # Query para buscar os conteúdos ativos e com data_publicacao <= agora
+        queryset_conteudo = Conteudo.objects.filter(ativo=True, data_publicacao__lte=agora).order_by('-data_publicacao')
+        
+        # Query para buscar as categorias ativas e ordená-las pelo campo 'ordem'
+        # Também faz o prefetch dos conteúdos ativos relacionados
+        categorias = Categoria.objects.filter(ativo=True).order_by('ordem').prefetch_related(
+            Prefetch('conteudo_set', queryset=queryset_conteudo)
+        )
+        queryset_conteudo_all = Conteudo.objects.filter(ativo=True).order_by('-data_publicacao')
+        # Também faz o prefetch dos conteúdos ativos relacionados
+        categorias_all = Categoria.objects.filter(ativo=True).order_by('ordem').prefetch_related(
+            Prefetch('conteudo_set', queryset=queryset_conteudo_all)
+        )
+    else:
+        return {'categorias_sidebar': {},
+            'categorias_all': {}}
+
     return {'categorias_sidebar': categorias,
             'categorias_all': categorias_all}
 
 def conteudos_ativos(request):
-    agora = timezone.now()
-    return {'conteudos_ativos': Conteudo.objects.filter(ativo=True, data_publicacao__lte=agora).order_by('-data_publicacao')}
-
+    if request.user.is_authenticated:
+        agora = timezone.now()
+        return {'conteudos_ativos': Conteudo.objects.filter(ativo=True, data_publicacao__lte=agora).order_by('-data_publicacao')}
+    else:
+        return {'conteudos_ativos': {}}
 def user_details(request):
     context = {}
     
