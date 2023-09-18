@@ -55,7 +55,7 @@ class PasswordResetConfirmForm(SetPasswordForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['foto', 'bio', 'genero','is_paciente']
+        fields = ['foto', 'genero','is_paciente']
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)

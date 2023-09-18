@@ -5,3 +5,7 @@
 .vscode/
 __pycache__/
 *.pyc
+portal/__pycache__/settings.cpython-310.pyc
+portal/__pycache__/urls.cpython-310.pyc
+usuarios/__pycache__/forms.cpython-310.pyc
+usuarios/__pycache__/models.cpython-310.pyc

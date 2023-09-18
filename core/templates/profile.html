@@ -60,10 +60,10 @@
                                 <input type="date" id="{{ user_form.data_nascimento.id_for_label }}" name="{{ user_form.data_nascimento.name }}" class="form-control" value="{{ user_form.data_nascimento.value|default_if_none:user.data_nascimento|date:'Y-m-d' }}" required>
                             </div>
                             
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="{{ profile_form.bio.id_for_label }}"><i class="fal fa-feather-alt"></i> Biografia:</label>
                                 <textarea id="{{ profile_form.bio.id_for_label }}" name="{{ profile_form.bio.name }}" class="form-control">{{ profile_form.bio.value }}</textarea>
-                            </div>
+                            </div> -->
                             
                             <div class="form-group">
                                 <label for="{{ profile_form.genero.id_for_label }}"><i class="fal fa-venus-mars"></i> Gênero:</label>

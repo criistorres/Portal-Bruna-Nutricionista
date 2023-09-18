@@ -52,7 +52,6 @@
                         <th>Nome</th>
                         <th>Email</th>
                         <th>Paciente?</th> <!-- Nova coluna -->
-                        <th>Biografia</th>
                         <th>Gênero</th>
                         <th>Ações</th>
                     </tr>
@@ -74,7 +73,6 @@
                             <span class="badge badge-danger">Não</span>
                             {% endif %}
                         </td>
-                        <td>{{ usuario.perfil.bio }}</td>
                         <td>{{ usuario.perfil.genero.nome }}</td>
                         <td>
                             <a href="{% url 'usuarios_edit' pk=usuario.user.pk %}" class="btn btn-sm btn-primary edit-usuario-btn"><i class="fa fa-edit"></i></a>

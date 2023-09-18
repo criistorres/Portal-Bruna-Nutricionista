@@ -132,7 +132,7 @@ class Profile(models.Model):
     # Define o campo de foto como um campo ImageField, com a label "Foto" e chamando a função user_directory_path para definir o caminho de armazenamento
     foto = models.ImageField('Foto', upload_to=user_directory_path, null=True, blank=True)
     # Campo de biografia.
-    bio = models.TextField('Biografia', blank=True, null=True, max_length=500)
+    # bio = models.TextField('Biografia', blank=True, null=True, max_length=500)
 
     genero = models.ForeignKey(Genero, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Gênero')
 

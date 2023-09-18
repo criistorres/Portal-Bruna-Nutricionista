@@ -13,3 +13,7 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+admin.AdminSite.site_header = 'Zen | Admin'
+admin.AdminSite.site_title = 'Zona de Educação Nutricional'
+admin.AdminSite.index_title = 'Administração Zen'
