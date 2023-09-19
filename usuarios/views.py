@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from usuarios.models import Users
 from django.contrib.auth import authenticate, login as login_django
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
 from django.views import View
 from django.shortcuts import render, redirect
 
