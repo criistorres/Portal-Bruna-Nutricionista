@@ -1,0 +1,77 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato - Zen</title>
+    <style>
+        /* Estilos CSS personalizados podem ser adicionados aqui */
+        body {
+            font-family: Questrial, sans-serif;
+            background-color: #60895d;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #60895d;
+            box-shadow: 0 2px 4px #111a17;
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+        }
+        .header img {
+            max-width: 200px;
+        }
+        h2 {
+            color: #f2f7f4;
+            font-size: 19px;
+            margin-top: 0;
+        }
+        p {
+            color: #f2f7f4;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .message {
+            background-color: #70887a;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #dddddd;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="{% static 'img/logo.png' %}" alt="Logo Portal Nutri">
+        </div>
+        <h2>Contato - Zen</h2>
+        <p>Olá,</p>
+        <p>Você recebeu uma mensagem de contato através da plataforma Zen. Abaixo estão os detalhes da mensagem:</p>
+        <p><strong>Nome:</strong> {{ nome }}</p>
+        <p><strong>Email:</strong> {{ email }}</p>
+        <p><strong>Telefone para Contato:</strong> {{ telefone }}</p>
+        <div class="message">
+            <p><strong>Mensagem:</strong></p>
+            <p>{{ mensagem }}</p>
+        </div>
+        <p>Obrigado!</p>
+        <p><a class="btn" href="http://18.228.53.142">Visitar o Portal</a></p>
+    </div>
+</body>
+</html>

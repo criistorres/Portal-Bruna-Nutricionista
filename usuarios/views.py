@@ -20,6 +20,11 @@ from .forms import UsersChangeForm, ProfileForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+
+from django.core.mail import send_mail
+from django.conf import settings
 
 class UserProfileView(LoginRequiredMixin, TemplateView):
     template_name = "index.html"
@@ -85,6 +90,15 @@ class CadastroView(View):
                     user.profile.foto = foto
                     user.profile.save()
 
+                # Envie o e-mail de boas-vindas
+                subject = 'Bem-vindo ao Zen'
+                message = 'Mensagem de boas-vindas aqui.'
+                from_email = settings.EMAIL_HOST_USER
+                recipient_list = [email]
+                
+                send_mail(subject, message, from_email, recipient_list, fail_silently=False, html_message=render_to_string('email_boas_vindas.html', {'first_name': first_name}))
+
+                messages.add_message(request, messages.SUCCESS, "Cadastro realizado! Enviamos um e-mail para você.")
                 return render(request, 'login.html')
         else:
             messages.add_message(request, messages.ERROR, "As senhas não coincidem, tente novamente!")

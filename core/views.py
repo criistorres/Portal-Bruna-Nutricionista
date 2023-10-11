@@ -6,12 +6,12 @@ from django.conf import settings
 from django.contrib import messages
 import re
 from django.shortcuts import redirect, render
-
 from django.contrib.auth.decorators import login_required
-
 from django.contrib.auth import logout
-
 from conteudo.models import Categoria
+
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 """ LoginRequiredMixin é uma classe de mixin fornecida pelo Django que pode ser usada para restringir o acesso a 
     determinadas views (visualizações) somente para usuários autenticados. 
@@ -45,14 +45,20 @@ class ContatoView(TemplateView):
             messages.add_message(request, messages.SUCCESS, 'Por favor, insira um email válido.')
             return render(request, self.template_name)
 
-        # Componha a mensagem de e-mail
-        subject = f'Contato ZEN - {nome}'
-        message = f'Nome: {nome}\nEmail: {email}\nTelefone: {telefone}\nMensagem:\n{mensagem}'
-        from_email = settings.EMAIL_HOST_USER
-        recipient_list = [settings.EMAIL_HOST_USER]  # Substitua pelo seu e-mail de administração
+        # Renderize o template HTML com os dados do formulário
+        html_message = render_to_string('email_contato.html', {'nome': nome, 'email': email, 'telefone': telefone, 'mensagem': mensagem})
 
-        # Envie o e-mail
-        send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+        # Remova as tags HTML do corpo do email para criar uma versão de texto simples
+        plain_message = strip_tags(html_message)
+
+        # Configure e envie o email
+        send_mail(
+            'Contato Zen',
+            plain_message,
+            settings.EMAIL_HOST_USER,
+            [settings.EMAIL_HOST_USER],  # Substitua pelo endereço de email de destino
+            html_message=html_message,  # Corpo HTML do email
+        )
         messages.add_message(request, messages.SUCCESS, 'E-mail enviado com sucesso, assim que possível retornaremos.')
         # Redirecione para a página de contato com uma mensagem de sucesso
         return render(request, self.template_name)
