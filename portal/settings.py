@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-*rj#tw3d3b=^ek3b%-w&f^uypiev7__#%5la^ce5j9v7_xairj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # Obtém o nome do host
 hostname = socket.gethostname()
@@ -147,7 +147,8 @@ DATABASES = {
         'USER': 'zenadm',
         'PASSWORD': 'P4rmera1914!',
         # 'HOST': 'zendb.czcu8thpibby.sa-east-1.rds.amazonaws.com', #ANTIGO
-        'HOST': 'zen-db.ci3ih9t79j71.sa-east-1.rds.amazonaws.com',
+        # 'HOST': 'zen-db.ci3ih9t79j71.sa-east-1.rds.amazonaws.com',
+        'HOST': 'zen-bd.ci3ih9t79j71.sa-east-1.rds.amazonaws.com',
         'PORT': '5432'
     }
 }
@@ -238,9 +239,13 @@ EMAIL_HOST_PASSWORD = 'lycsjuwvitiyidpt'
 """  Integração AWS - Imagens e arquivos estaticos  """
 
 # AWS_ACCESS_KEY_ID = 'AKIA2P7BLYMG6ZQ2T5XM' #ANTIGA
-AWS_ACCESS_KEY_ID = 'AKIAYDQLKO4RTT6VE5P3'
+# AWS_ACCESS_KEY_ID = 'AKIAYDQLKO4RTT6VE5P3'
+AWS_ACCESS_KEY_ID = 'AKIAYDQLKO4RXSSPJGRC'
+AWS_ACCESS_KEY_ID = 'AKIAYDQLKO4R6F3VCNBW'
 # AWS_SECRET_ACCESS_KEY = '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' #ANTIGA
-AWS_SECRET_ACCESS_KEY = 'UcLyuYTvxbggc8mRC3x4OMPO2h2bN1kwUnZBhLX7'
+# AWS_SECRET_ACCESS_KEY = 'UcLyuYTvxbggc8mRC3x4OMPO2h2bN1kwUnZBhLX7'
+AWS_SECRET_ACCESS_KEY = 'YS8tInol9hWFVNTS9oXQzGeIH8lGGIxeEUAHoyKt'
+AWS_SECRET_ACCESS_KEY = 'XFndOpy8K3MXoeo87Q/cpVfuENqFDbrq3HlJnPv0'
 # AWS_STORAGE_BUCKET_NAME = 'torrestech-zen-bucket' #ANTIGA
 AWS_STORAGE_BUCKET_NAME = 'zen-bucketaws'
 AWS_S3_SIGNATURE_VERSION  = 's3v4'
