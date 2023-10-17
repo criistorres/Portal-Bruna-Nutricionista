@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-*rj#tw3d3b=^ek3b%-w&f^uypiev7__#%5la^ce5j9v7_xairj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Obtém o nome do host
 hostname = socket.gethostname()
@@ -143,12 +143,12 @@ WSGI_APPLICATION = 'portal.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
+        'NAME': 'zendb',
         'USER': 'zenadm',
         'PASSWORD': 'P4rmera1914!',
         # 'HOST': 'zendb.czcu8thpibby.sa-east-1.rds.amazonaws.com', #ANTIGO
         # 'HOST': 'zen-db.ci3ih9t79j71.sa-east-1.rds.amazonaws.com',
-        'HOST': 'zen-bd.ci3ih9t79j71.sa-east-1.rds.amazonaws.com',
+        'HOST': 'zen-db.ci3ih9t79j71.sa-east-1.rds.amazonaws.com',
         'PORT': '5432'
     }
 }
