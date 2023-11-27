@@ -1,12 +1,9 @@
 {% load static %}
-<aside class="page-sidebar">
-    <div class="page-logo">
-        <a href="#"
-            class="page-logo-link press-scale-down d-flex align-items-center position-relative"
-            data-toggle="modal" data-target="#">
-            <!-- <img src="{% static 'img/logo.png' %}" alt="SmartAdmin WebApp"
-                aria-roledescription="logo" style="width: 50px; height: 50px;"> -->
-            <!-- <span class="text-truncate text-truncate-lg d-inline-block"> {{ info.nome }}</span> -->
+<aside class="page-sidebar" style="display: flex; flex-direction: column; align-items: center;">
+    <div class="page-logo" style="width: 100%;">
+        <a href="#" class="page-logo-link press-scale-down d-flex align-items-center justify-content-center position-relative" data-toggle="modal" data-target="#">
+            <!-- <img src="" alt="SmartAdmin WebApp" aria-roledescription="logo" style="width: 50px; height: 50px; display: block; margin: 0 auto;">  -->
+            <span class="text-truncate text-truncate-lg d-inline-block" style="text-align: center; margin-top: 10px; font-size: 14px; color: white;">{{ info.nome }}</span>
         </a>
     </div>
     <!-- BEGIN PRIMARY NAVIGATION -->
@@ -106,52 +103,7 @@
                 </ul>
             </li>
             {% endif %}
-            <li class="nav-title">Navegação</li>
-            <li>
-                <a href="#" title="Category" data-filter-tags="category">
-                    <i class="fal fa-user-circle"></i>
-                    <span class="nav-link-text" data-i18n="nav.category">Meu
-                        espaço</span>
-                </a>
-
-                <ul>
-                    <li>
-                        <li>
-                            <a href="#" title="Sublevel Item"
-                                data-filter-tags="utilities menu child sublevel item">
-                                <span class="nav-link-text"
-                                    data-i18n="nav.utilities_menu_child_sublevel_item">Dietas</span>
-                            </a>
-
-                        </li>
-                        <li>
-                            <a href="#" title="Sublevel Item"
-                                data-filter-tags="utilities menu child sublevel item">
-                                <span class="nav-link-text"
-                                    data-i18n="nav.utilities_menu_child_sublevel_item">Exames</span>
-                            </a>
-
-                        </li>
-                        <li>
-                            <a href="#" title="Sublevel Item"
-                                data-filter-tags="utilities menu child sublevel item"
-                                data-toggle="modal" data-target=".modal-profile">
-                                <span class="nav-link-text"
-                                    data-i18n="nav.utilities_menu_child_sublevel_item">Perfil</span>
-                            </a>
-                        </li>
-
-                    </li>
-                    <li class="disabled">
-                        <a href="javascript:void(0);" title="Disabled item"
-                            data-filter-tags="utilities disabled item">
-                            <span class="nav-link-text"
-                                data-i18n="nav.utilities_disabled_item">Disabled
-                                item</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
+            
 
             {% for categoria in categorias_sidebar %}
             <li>
@@ -195,12 +147,12 @@
                     <i class="fab fa-instagram"></i>
                 </a>
             </li>
-            <!-- <li>
-                <a href="javascript:void(0);" data-toggle="tooltip"
-                    data-placement="top" title="Chat logs">
-                    <i class="fal fa-comments"></i>
+            <li>
+                <a href="https://www.youtube.com/@brunaealvesnutri" target="_blank" data-toggle="tooltip"
+                    data-placement="top" title="Canal no YouTube">
+                    <i class="fab fa-youtube"></i>
                 </a>
-            </li> -->
+            </li>
             <li>
                 <a href="{% url 'contato' %}" data-toggle="tooltip"
                     data-placement="top" title="Contato">

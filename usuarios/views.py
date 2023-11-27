@@ -125,7 +125,7 @@ class LoginView(View):
             return redirect( "index")
         else:
             # Se as credenciais são inválidas, retorna uma resposta com a mensagem de erro
-            messages.add_message(request, messages.ERROR, "Ops, email ou senha incorretos, tente novamente! 😞")
+            messages.add_message(request, messages.ERROR, "Seus dados estão incorretos, tente novamente! 😞")
             return render(request, 'login.html')
     
 class LogoutView(View):

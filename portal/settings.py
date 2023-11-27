@@ -15,6 +15,7 @@ from pathlib import Path
 import os
 import socket
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 # print(BASE_DIR)
@@ -35,9 +36,10 @@ hostname = socket.gethostname()
 # Obtém o endereço IP
 IPAddr = socket.gethostbyname(hostname)
 
+print(IPAddr)
 # ALLOWED_HOSTS = ['portalzen-dev.sa-east-1.elasticbeanstalk.com']
-# ALLOWED_HOSTS = [IPAddr, 'localhost', '127.0.0.1']
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [IPAddr, 'localhost', '127.0.0.1']
+# ALLOWED_HOSTS = ['*']
 
 # Define o caminho para o seu template de email personalizado
 PASSWORD_RESET_EMAIL_TEMPLATE = 'registration/password_reset_email.html'
@@ -146,11 +148,14 @@ DATABASES = {
         'NAME': 'zendb',
         'USER': 'zenadm',
         'PASSWORD': 'P4rmera1914!',
-        # 'HOST': 'zendb.czcu8thpibby.sa-east-1.rds.amazonaws.com', #ANTIGO
-        # 'HOST': 'zen-db.ci3ih9t79j71.sa-east-1.rds.amazonaws.com',
         'HOST': 'zen-db.ci3ih9t79j71.sa-east-1.rds.amazonaws.com',
-        'PORT': '5432'
-    }
+        'PORT': '5432',
+        'OPTIONS': {
+            'sslmode': 'verify-ca',
+            'sslrootcert': './zenpem/aws-rds-ca.pem',
+            # 'sslrootcert': 'C:/Users/cristian.torres/GitHub/Portal-Bruna-Nutricionista/zenpem',
+        },
+    },
 }
 
 # Password validation

@@ -167,7 +167,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                         <form id="js-login" novalidate="" action="{% url 'cadastro' %}" method="POST" enctype="multipart/form-data">
                                             {% csrf_token %}
                                             <div class="form-group row">
-                                                <label class="col-xl-12 form-label" for="first_name">Seu nome e seu último nome</label>
+                                                <label class="col-xl-12 form-label" for="first_name">Seu nome e Sobrenome</label>
                                                 <div class="col-6 pr-1">
                                                     <input type="text" id="first_name" name="first_name" class="form-control" placeholder="Nome" required>
                                                     <div class="invalid-feedback">Ops, você esqueceu este.</div>
@@ -178,7 +178,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="form-label" for="email">Email será usado para acesso e recuperação de senha</label>
+                                                <label class="form-label" for="email">Email de acesso e recuperação:</label>
                                                 <input type="email" id="email" name="email" class="form-control" placeholder="Email for verification" required>
                                                 <div class="invalid-feedback">Ops, você esqueceu este.</div>
                                                 <div class="help-block">Seu e-mail será também seu usuário.</div>
