@@ -38,8 +38,8 @@ IPAddr = socket.gethostbyname(hostname)
 
 print(IPAddr)
 # ALLOWED_HOSTS = ['portalzen-dev.sa-east-1.elasticbeanstalk.com']
-ALLOWED_HOSTS = [IPAddr, 'localhost', '127.0.0.1']
-# ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = [IPAddr, 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 # Define o caminho para o seu template de email personalizado
 PASSWORD_RESET_EMAIL_TEMPLATE = 'registration/password_reset_email.html'
