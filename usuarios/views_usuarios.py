@@ -44,8 +44,8 @@ class UserListView(UserPassesTestMixin, ListView):
         if query:
             queryset = queryset.filter(
                 Q(first_name__icontains=query) | 
-                Q(last_name__icontains=query) | # ou quaisquer outros campos que você queira pesquisar
-                Q(profile__bio__icontains=query)  # ou quaisquer outros campos que você queira pesquisar
+                Q(last_name__icontains=query)  # ou quaisquer outros campos que você queira pesquisar
+                # Q(profile__bio__icontains=query)  # ou quaisquer outros campos que você queira pesquisar
             )
         return queryset
 

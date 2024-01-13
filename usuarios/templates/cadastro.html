@@ -129,8 +129,8 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                     <div class="height-10 w-100 shadow-lg px-4 bg-brand-gradient">
                         <div class="d-flex align-items-center container p-0">
                             <div class="page-logo width-mobile-auto m-0 align-items-center justify-content-center p-0 bg-transparent bg-img-none shadow-0 height-9 border-0">
-                                <a href="javascript:void(0)" class="page-logo-link press-scale-down d-flex align-items-center">
-                                    <img src="{% static 'img/logo.png' %}" alt="SmartAdmin WebApp" aria-roledescription="logo">
+                                <a href="{% url 'login' %}" class="page-logo-link press-scale-down d-flex align-items-center">
+                                    <img src="{{ info.logo_sem_fundo.url }}" style="width: 50px; height: 50px;" alt="{{ info.nome_reduzido }}" aria-roledescription="logo">
                                     <span class="page-logo-text mr-1">{{ info.nome }}</span>
                                 </a>
                             </div>
@@ -148,10 +148,10 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                 <div class="col-xl-12">
                                     <h2 class="fs-xxl fw-500 mt-4 text-white text-center">
                                         Faça seu cadastro conosco!
-                                        <small class="h3 fw-300 mt-3 mb-5 text-white opacity-60 hidden-sm-down">
+                                        {% comment %} <small class="h3 fw-300 mt-3 mb-5 text-white opacity-60 hidden-sm-down">
                                             Your registration is free for a limited time. Enjoy SmartAdmin on your mobile, desktop or tablet.
                                             <br>It is ready to go wherever you go!
-                                        </small>
+                                        </small> {% endcomment %}
                                     </h2>
                                 </div>
                                 <div class="col-xl-6 ml-auto mr-auto">
@@ -167,7 +167,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                         <form id="js-login" novalidate="" action="{% url 'cadastro' %}" method="POST" enctype="multipart/form-data">
                                             {% csrf_token %}
                                             <div class="form-group row">
-                                                <label class="col-xl-12 form-label" for="first_name">Seu nome e Sobrenome</label>
+                                                <label class="col-xl-12 form-label" for="first_name"></label>
                                                 <div class="col-6 pr-1">
                                                     <input type="text" id="first_name" name="first_name" class="form-control" placeholder="Nome" required>
                                                     <div class="invalid-feedback">Ops, você esqueceu este.</div>
@@ -179,7 +179,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                             </div>
                                             <div class="form-group">
                                                 <label class="form-label" for="email">Email de acesso e recuperação:</label>
-                                                <input type="email" id="email" name="email" class="form-control" placeholder="Email for verification" required>
+                                                <input type="email" id="email" name="email" class="form-control" placeholder="Email" required>
                                                 <div class="invalid-feedback">Ops, você esqueceu este.</div>
                                                 <div class="help-block">Seu e-mail será também seu usuário.</div>
                                             </div>
@@ -196,7 +196,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                                 <div class="help-block">Sua senha deve ter de 8-20 caracteres, contendo letras e números e não conter espaços.</div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="form-label">Telefone/Celular</label>
+                                                <label class="form-label">Celular</label>
                                                 <input type="text" id="fone" name="fone" data-inputmask="'mask': '+99 99999-9999'" class="form-control" im-insert="true">
                                                 <span class="help-block">+99 99999-9999</span>
                                             </div>
