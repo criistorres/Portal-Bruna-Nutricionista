@@ -10,7 +10,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
 -->
 <html lang="pt-br">
     <head>
-        <meta charset="utf-8">
+        <meta charset="utf-8" >
         <title>
             Login - Zen
         </title>
@@ -40,7 +40,17 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                 font-family: 'Questrial', sans-serif; /* Fonte Questrial ou outra desejada */
                 color: white; /* Cor do texto branca */
             }
+            /* Estilos específicos para dispositivos móveis */
+            @media (max-width: 768px) {
+                .mobile-video {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    /* Adicione outros estilos específicos para dispositivos móveis aqui */
+                }
+            }
         </style>
+        
     </head>
     <!-- BEGIN Body -->
     <!-- Possible Classes
@@ -187,10 +197,30 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                 </div>
             </div>
         </div>
-        <video poster="{{ info.background.url }}" >
-            <!--source src="{% static 'media/video/cc.webm' %}" type="video/webm"-->
-            <!-- <source src="{% static 'media/video/passando_comida.mp4' %}" type="video/mp4"> -->
-        </video>
+        {% comment %} PRECISO VERIFICAR AQUI POIS TENHO A URL {{ info.background_mobile.url }} {% endcomment %}
+
+        
+        <script>
+            if (window.innerWidth <= 768) {
+                // Se a largura da janela for menor ou igual a 768 pixels
+                document.write('<video poster="{{ info.background_mobile.url }}" id="background-video" class="mobile-video">');
+                document.write('<source src="{{ info.background_mobile.url }}" type="video/webm">');
+                document.write('<source src="{{ info.background_mobile.url }}" type="video/mp4">');
+                document.write('</video>');
+                alert("Acesso por MOVELt");
+            } else {
+                document.write('<video poster="{{ info.background.url }}" id="background-video">');
+                // Se a largura da janela for maior que 768 pixels
+                document.write('<source src="{{ info.background.url }}" type="video/webm">');
+                document.write('<source src="{{ info.background.url }}" type="video/mp4">');
+                document.write('</video>');
+                alert("Acesso por desktop ou tablet");
+            }
+        </script>
+        
+        
+
+        
 
         <!-- BEGIN Color profile -->
         <!-- this area is hidden and will not be seen on screens or screen readers -->
