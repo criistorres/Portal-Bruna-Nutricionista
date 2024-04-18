@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-*rj#tw3d3b=^ek3b%-w&f^uypiev7__#%5la^ce5j9v7_xairj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # Obtém o nome do host
 hostname = socket.gethostname()
@@ -38,8 +38,8 @@ IPAddr = socket.gethostbyname(hostname)
 
 print(IPAddr)
 # ALLOWED_HOSTS = ['portalzen-dev.sa-east-1.elasticbeanstalk.com']
-# ALLOWED_HOSTS = [IPAddr, 'localhost', '127.0.0.1']
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [IPAddr, 'localhost', '127.0.0.1']
+# ALLOWED_HOSTS = ['*']
 
 
 # Define o caminho para o seu template de email personalizado
